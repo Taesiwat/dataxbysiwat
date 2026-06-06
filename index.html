@@ -37,7 +37,6 @@
       
       <nav class="nav-menu" id="nav-menu">
         <a href="#about" class="nav-link">.about()</a>
-        <a href="#sandbox" class="nav-link">.sandbox()</a>
         <a href="#projects" class="nav-link">.projects()</a>
         <a href="#contact" class="nav-link">.contact()</a>
       </nav>
@@ -62,8 +61,8 @@
           I am a quantitative economist and system designer. I combine classical economic theory with modern programming tools to build interactive simulations, analyze monetary policy, and forecast macroeconomic trends.
         </p>
         <div class="hero-actions">
-          <a href="#sandbox" class="btn btn-primary">Try Simulator</a>
-          <a href="#projects" class="btn btn-secondary">View Research</a>
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-secondary">Get in Touch</a>
         </div>
       </div>
       
@@ -115,167 +114,11 @@
     </div>
   </section>
 
-  <!-- Interactive Sandbox Section -->
-  <section id="sandbox" class="sandbox-section">
-    <div class="section-container">
-      <div class="section-header">
-        <span class="section-number">01.</span>
-        <h2 class="section-title">Interactive Economic Sandbox</h2>
-        <div class="section-divider"></div>
-      </div>
-      <p class="section-subtitle">
-        Explore market equilibrium, incentives, price controls, and market failures. Learn how policy interventions affect total social welfare and deadweight loss.
-      </p>
-
-      <div class="sandbox-grid">
-        <!-- Control Panel -->
-        <div class="control-panel">
-          <h3 class="panel-title">// Market Scenarios</h3>
-          
-          <div class="control-group" style="margin-bottom: 24px;">
-            <label for="sandbox-scenario" style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 8px;">Select Principle to Simulate</label>
-            <select id="sandbox-scenario" class="range-slider" style="background-color: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 4px; width: 100%; height: auto; -webkit-appearance: auto; cursor: pointer;">
-              <option value="tax">Principle 4: Taxes & Incentives</option>
-              <option value="control">Principle 6: Price Controls (Ceiling/Floor)</option>
-              <option value="externality">Principle 7: Pollution & Pigouvian Regulation</option>
-            </select>
-          </div>
-
-          <!-- Slider: Taxation (Principle 4) -->
-          <div class="control-group slider-policy" id="group-tax">
-            <div class="control-label">
-              <span>Per-Unit Tax ($)</span>
-              <span class="control-value" id="val-tax">$0.00</span>
-            </div>
-            <input type="range" id="input-tax" min="0.0" max="8.0" step="0.5" value="0.0" class="range-slider">
-            <span class="slider-hint">Imposing a tax shifts the market supply curve upward, generating deadweight loss.</span>
-          </div>
-
-          <!-- Slider: Price Controls (Principle 6) -->
-          <div class="control-group slider-policy" id="group-control" style="display: none;">
-            <div class="control-label">
-              <span>Price Control Type</span>
-              <div style="display: flex; gap: 12px;">
-                <label style="font-size: 0.75rem; cursor: pointer; color: var(--color-primary);"><input type="radio" name="control-type" id="type-ceiling" checked style="margin-right: 4px;">Ceiling</label>
-                <label style="font-size: 0.75rem; cursor: pointer; color: var(--color-secondary);"><input type="radio" name="control-type" id="type-floor" style="margin-right: 4px;">Floor</label>
-              </div>
-            </div>
-            <div class="control-label" style="margin-top: 12px;">
-              <span>Controlled Price Level ($)</span>
-              <span class="control-value" id="val-price-control">$8.00</span>
-            </div>
-            <input type="range" id="input-price-control" min="4.0" max="12.0" step="0.5" value="8.0" class="range-slider">
-            <span class="slider-hint">A binding ceiling causes shortages; a binding floor causes surpluses.</span>
-          </div>
-
-          <!-- Sliders: Externality (Principle 7) -->
-          <div class="control-group slider-policy" id="group-externality" style="display: none;">
-            <div class="control-label">
-              <span>Negative Externality (Pollution Damage per unit)</span>
-              <span class="control-value" id="val-externality">$4.00</span>
-            </div>
-            <input type="range" id="input-externality" min="0.0" max="8.0" step="0.5" value="4.0" class="range-slider">
-            <span class="slider-hint">Creates a gap between private costs and social costs, leading to market failure.</span>
-            
-            <div class="control-label" style="margin-top: 16px;">
-              <span>Pigouvian Corrective Tax ($)</span>
-              <span class="control-value" id="val-ext-tax">$0.00</span>
-            </div>
-            <input type="range" id="input-ext-tax" min="0.0" max="8.0" step="0.5" value="0.0" class="range-slider">
-            <span class="slider-hint">A corrective tax equal to external damage shifts the market back to social optimum.</span>
-          </div>
-
-          <div class="equation-display" style="margin-top: auto;">
-            <div class="equation-title">Linear Market Equations:</div>
-            <div class="equation-formula" style="font-size: 0.8rem; margin-bottom: 4px;">
-              Demand: P = 16 - Q &nbsp;|&nbsp; Private Supply: P = Q
-            </div>
-            <div class="equation-constants" id="eq-social-supply" style="color: var(--text-muted);">
-              Social Cost (Supply + Externality): P = Q
-            </div>
-          </div>
-        </div>
-
-        <!-- Visual Output Panel -->
-        <div class="output-panel" style="padding: 24px;">
-          <!-- SVG Graph -->
-          <div style="width: 100%; max-width: 400px; aspect-ratio: 1; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; position: relative;">
-            <svg id="market-graph-svg" viewBox="0 0 300 300" style="width: 100%; height: 100%;">
-              <!-- Grid Lines -->
-              <line x1="40" y1="40" x2="260" y2="40" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="40" y1="95" x2="260" y2="95" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="40" y1="150" x2="260" y2="150" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="40" y1="205" x2="260" y2="205" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="40" y1="260" x2="260" y2="260" stroke="#30363d" />
-              <line x1="40" y1="40" x2="40" y2="260" stroke="#30363d" />
-              <line x1="95" y1="40" x2="95" y2="260" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="150" y1="40" x2="150" y2="260" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="205" y1="40" x2="205" y2="260" stroke="#1f242c" stroke-dasharray="2" />
-              <line x1="260" y1="40" x2="260" y2="260" stroke="#1f242c" stroke-dasharray="2" />
-              
-              <!-- Shaded Areas (Polygons) -->
-              <polygon id="poly-cs" points="" fill="rgba(76, 150, 153, 0.15)" stroke="none" />
-              <polygon id="poly-ps" points="" fill="rgba(229, 192, 123, 0.15)" stroke="none" />
-              <polygon id="poly-gov" points="" fill="rgba(137, 180, 130, 0.2)" stroke="none" />
-              <polygon id="poly-dwl" points="" fill="rgba(239, 89, 111, 0.25)" stroke="none" />
-              <polygon id="poly-damage" points="" fill="rgba(239, 89, 111, 0.08)" stroke="none" />
-              
-              <!-- Curves (Lines) -->
-              <line id="line-demand" x1="40" y1="40" x2="260" y2="260" stroke="#4c9699" stroke-width="2.5" />
-              <line id="line-supply" x1="40" y1="260" x2="260" y2="40" stroke="#e5c07b" stroke-width="2.5" />
-              <line id="line-social-supply" x1="40" y1="260" x2="260" y2="40" stroke="#ef596f" stroke-width="1.5" stroke-dasharray="4" style="display:none;" />
-              <line id="line-price-control" x1="40" y1="150" x2="260" y2="150" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3" style="display:none;" />
-              
-              <!-- Points -->
-              <circle id="point-eq" cx="150" cy="150" r="5" fill="#ffffff" />
-              <circle id="point-social" cx="150" cy="150" r="4" fill="#ef596f" style="display:none;" />
-              
-              <!-- Axis Labels -->
-              <text x="250" y="275" fill="#8b949e" font-size="8" font-family="JetBrains Mono">Q</text>
-              <text x="25" y="50" fill="#8b949e" font-size="8" font-family="JetBrains Mono">P</text>
-            </svg>
-          </div>
-
-          <!-- Surplus / Welfare Readouts -->
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; margin-top: 16px;">
-            <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px; text-align: left;">
-              <div style="font-size: 0.6rem; color: var(--text-muted);">CONS. SURPLUS</div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: var(--color-secondary);" id="stat-cs">$32.00</div>
-            </div>
-            <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px; text-align: left;">
-              <div style="font-size: 0.6rem; color: var(--text-muted);">PROD. SURPLUS</div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: var(--color-primary);" id="stat-ps">$32.00</div>
-            </div>
-            <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px; text-align: left;">
-              <div style="font-size: 0.6rem; color: var(--text-muted);" id="stat-opt-label">TAX REVENUE</div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: var(--color-success);" id="stat-opt-value">$0.00</div>
-            </div>
-          </div>
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 12px;">
-            <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px; text-align: left;">
-              <div style="font-size: 0.6rem; color: var(--text-muted);">SOCIAL WELFARE</div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);" id="stat-welfare">$64.00</div>
-            </div>
-            <div style="background-color: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px; text-align: left;">
-              <div style="font-size: 0.6rem; color: var(--text-muted);">DEADWEIGHT LOSS</div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: var(--color-danger);" id="stat-dwl">$0.00</div>
-            </div>
-          </div>
-
-          <div class="simulation-feedback" id="market-narrative" style="border-top: 1px solid var(--border-color); margin-top: 16px; padding-top: 16px; font-size: 0.75rem; text-align: left; width: 100%;">
-            The market is in equilibrium at a price of $8.00 and quantity of 8.0 units. Total social benefit is maximized at $64.00, and there is no deadweight loss.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Projects Section -->
   <section id="projects" class="projects-section">
     <div class="section-container">
       <div class="section-header">
-        <span class="section-number">02.</span>
+        <span class="section-number">01.</span>
         <h2 class="section-title">Selected Projects & Research</h2>
         <div class="section-divider"></div>
       </div>
@@ -396,7 +239,7 @@
   <section id="contact" class="contact-section">
     <div class="section-container">
       <div class="section-header">
-        <span class="section-number">03.</span>
+        <span class="section-number">02.</span>
         <h2 class="section-title">Get in Touch</h2>
         <div class="section-divider"></div>
       </div>
