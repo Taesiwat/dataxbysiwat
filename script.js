@@ -238,6 +238,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const draw = () => {
+      // Disable shadow blur for drawing the trailing overlay
+      ctx.shadowBlur = 0;
+      
       // Semi-transparent overlay to create trailing effect
       ctx.fillStyle = "rgba(10, 12, 16, 0.08)";
       ctx.fillRect(0, 0, width, height);
@@ -252,11 +255,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Only draw on screen to optimize
         if (yCoord > 0 && yCoord < height + fontSize) {
+          // Enable glowing green shadow blur for characters
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = "#00ff41";
+
           // Render character shadow / trail color (classic matrix green)
-          ctx.fillStyle = "#00ff66";
+          ctx.fillStyle = "#00ff41";
           ctx.fillText(text, xCoord, yCoord - fontSize);
           
-          // Render the glowing head character in bright white
+          // Render the glowing head character in bright white (glows green)
           ctx.fillStyle = "#ffffff";
           ctx.fillText(text, xCoord, yCoord);
         }
