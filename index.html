@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siwat Teimmtad | Creator & Economist</title>
+  <meta name="description" content="Portfolio of Siwat Teimmtad, a Creator and Economist specializing in quantitative macroeconomics, policy modeling, and interactive systems.">
+  <meta name="author" content="Siwat Teimmtad">
+  
+  <!-- SEO & OpenGraph -->
+  <meta property="og:title" content="Siwat Teimmtad | Creator & Economist">
+  <meta property="og:description" content="Quantitative macroeconomics, monetary policy simulators, and data-driven systems.">
+  <meta property="og:type" content="website">
+  
+  <!-- JetBrains Mono Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for Contacts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Style Sheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="#" class="logo-container" id="logo-link">
+        <span class="logo-symbol">&lt;ST/&gt;</span>
+        <span class="logo-text">Siwat Teimmtad</span>
+      </a>
+      
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#about" class="nav-link">.about()</a>
+        <a href="#sandbox" class="nav-link">.sandbox()</a>
+        <a href="#projects" class="nav-link">.projects()</a>
+        <a href="#contact" class="nav-link">.contact()</a>
+      </nav>
+      
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="about" class="hero-section">
+    <div class="grid-overlay"></div>
+    <div class="section-container hero-grid">
+      <div class="hero-info">
+        <div class="badge">ECONOMIST & CREATOR</div>
+        <h1 class="hero-title">Siwat Teimmtad</h1>
+        <p class="hero-subtitle">Analyzing economic complexity through code, data, and interactive models.</p>
+        <p class="hero-desc">
+          I am a quantitative economist and system designer. I combine classical economic theory with modern programming tools to build interactive simulations, analyze monetary policy, and forecast macroeconomic trends.
+        </p>
+        <div class="hero-actions">
+          <a href="#sandbox" class="btn btn-primary">Try Simulator</a>
+          <a href="#projects" class="btn btn-secondary">View Research</a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="visual-canvas">
+          <div class="glowing-orb"></div>
+          <div class="matrix-grid">
+            <svg class="graph-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+              <!-- Grid Lines -->
+              <line x1="50" y1="50" x2="350" y2="50" stroke="#1f242c" stroke-dasharray="4" />
+              <line x1="50" y1="125" x2="350" y2="125" stroke="#1f242c" stroke-dasharray="4" />
+              <line x1="50" y1="200" x2="350" y2="200" stroke="#1f242c" stroke-dasharray="4" />
+              <line x1="50" y1="275" x2="350" y2="275" stroke="#30363d" />
+              
+              <line x1="50" y1="50" x2="50" y2="275" stroke="#30363d" />
+              <line x1="150" y1="50" x2="150" y2="275" stroke="#1f242c" stroke-dasharray="4" />
+              <line x1="250" y1="50" x2="250" y2="275" stroke="#1f242c" stroke-dasharray="4" />
+              <line x1="350" y1="50" x2="350" y2="275" stroke="#1f242c" stroke-dasharray="4" />
+              
+              <!-- Curved Graph Line (Trend) -->
+              <path d="M 50 220 C 100 240, 120 100, 180 140 C 240 180, 280 80, 350 40" fill="none" stroke="url(#accent-gradient)" stroke-width="3" id="hero-graph-path" />
+              
+              <!-- Animated Glowing Dot -->
+              <circle cx="50" cy="220" r="6" fill="#e5c07b" class="pulse-dot" id="hero-graph-dot">
+                <animateMotion dur="6s" repeatCount="indefinite" path="M 0 0 C 50 20, 70 -120, 130 -80 C 190 -40, 230 -140, 300 -180" />
+              </circle>
+              
+              <defs>
+                <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#4c9699" />
+                  <stop offset="50%" stop-color="#e5c07b" />
+                  <stop offset="100%" stop-color="#ef596f" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="metrics-overlay">
+              <div class="metric-item">
+                <span class="label">R-squared</span>
+                <span class="value">0.984</span>
+              </div>
+              <div class="metric-item">
+                <span class="label">Volatility</span>
+                <span class="value">0.024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Sandbox Section -->
+  <section id="sandbox" class="sandbox-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-number">01.</span>
+        <h2 class="section-title">Interactive Economic Sandbox</h2>
+        <div class="section-divider"></div>
+      </div>
+      <p class="section-subtitle">
+        Explore how monetary policy responds to macroeconomic shocks using this interactive simulation of the <strong>Taylor Rule</strong>.
+      </p>
+
+      <div class="sandbox-grid">
+        <!-- Control Panel -->
+        <div class="control-panel">
+          <h3 class="panel-title">// Simulation Parameters</h3>
+          
+          <div class="control-group">
+            <div class="control-label">
+              <span>Inflation Rate (&pi;<sub>t</sub>)</span>
+              <span class="control-value" id="val-inflation">2.5%</span>
+            </div>
+            <input type="range" id="input-inflation" min="-2.0" max="10.0" step="0.1" value="2.5" class="range-slider">
+            <span class="slider-hint">Target inflation (&pi;*) is set at 2.0%</span>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Output Gap (y<sub>t</sub>)</span>
+              <span class="control-value" id="val-outputgap">1.0%</span>
+            </div>
+            <input type="range" id="input-outputgap" min="-5.0" max="5.0" step="0.1" value="1.0" class="range-slider">
+            <span class="slider-hint">Positive indicates overheating; negative indicates recession</span>
+          </div>
+
+          <div class="equation-display">
+            <div class="equation-title">Taylor Rule Formula:</div>
+            <div class="equation-formula">
+              i<sub>t</sub> = r* + &pi;<sub>t</sub> + 0.5(&pi;<sub>t</sub> - &pi;*) + 0.5(y<sub>t</sub>)
+            </div>
+            <div class="equation-constants">
+              Constants: r* (Neutral Rate) = 2.0% | &pi;* (Target Inflation) = 2.0%
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Output Panel -->
+        <div class="output-panel">
+          <div class="gauge-wrapper">
+            <svg class="gauge-svg" viewBox="0 0 200 200">
+              <!-- Gauge Background Track -->
+              <path class="gauge-track" d="M 30 160 A 80 80 0 1 1 170 160" fill="none" stroke="#21262d" stroke-width="12" stroke-linecap="round" />
+              <!-- Gauge Value Fill -->
+              <path class="gauge-fill" id="gauge-fill" d="M 30 160 A 80 80 0 1 1 170 160" fill="none" stroke="#e5c07b" stroke-width="12" stroke-linecap="round" stroke-dasharray="380" stroke-dashoffset="380" />
+            </svg>
+            <div class="gauge-center">
+              <div class="gauge-label">TARGET RATE</div>
+              <div class="gauge-value" id="target-rate-val">5.25%</div>
+              <div class="gauge-sub" id="policy-stance">RESTRICTIVE</div>
+            </div>
+          </div>
+
+          <div class="simulation-feedback" id="simulation-narrative">
+            Inflation is currently elevated above target, and the economy is operating slightly above potential capacity. The Taylor Rule prescribes a restrictive stance of 5.25% to stabilize inflation expectations.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-number">02.</span>
+        <h2 class="section-title">Selected Projects & Research</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Forecasting</span>
+            <div class="project-links">
+              <a href="#" aria-label="Source Code" class="project-link-icon"><i class="fab fa-github"></i></a>
+              <a href="#" aria-label="External Link" class="project-link-icon"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Macroeconomic Forecasting Dashboard</h3>
+          <p class="project-description">
+            An interactive data modeling dashboard implementing advanced vector autoregressive (VAR) and LSTM models to forecast GDP growth, inflation indices, and unemployment rates.
+          </p>
+          
+          <div class="project-visual">
+            <div class="mini-chart">
+              <span class="bar-chart-bar" style="height: 40%"></span>
+              <span class="bar-chart-bar" style="height: 60%"></span>
+              <span class="bar-chart-bar" style="height: 55%"></span>
+              <span class="bar-chart-bar" style="height: 80%"></span>
+              <span class="bar-chart-bar" style="height: 95%"></span>
+              <span class="bar-chart-bar" style="height: 70%"></span>
+              <span class="bar-chart-bar" style="height: 85%"></span>
+            </div>
+          </div>
+          
+          <ul class="project-tech-list">
+            <li>Python</li>
+            <li>Statsmodels</li>
+            <li>D3.js</li>
+            <li>FastAPI</li>
+          </ul>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Simulation</span>
+            <div class="project-links">
+              <a href="#" aria-label="Source Code" class="project-link-icon"><i class="fab fa-github"></i></a>
+              <a href="#" aria-label="External Link" class="project-link-icon"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Algorithmic Monetary Policy Simulator</h3>
+          <p class="project-description">
+            Agent-based computational model analyzing policy transmission mechanisms and their effects on heterogeneous households. Explores capital requirements and interest rate channels.
+          </p>
+          
+          <div class="project-visual">
+            <div class="dots-grid-visual">
+              <span class="dot-node pulse"></span>
+              <span class="dot-node"></span>
+              <span class="dot-node"></span>
+              <span class="dot-node pulse"></span>
+              <span class="dot-node"></span>
+              <span class="dot-node"></span>
+              <span class="dot-node pulse"></span>
+              <span class="dot-node"></span>
+              <span class="dot-node"></span>
+            </div>
+          </div>
+          
+          <ul class="project-tech-list">
+            <li>WebAssembly</li>
+            <li>Rust</li>
+            <li>VanillaJS</li>
+            <li>CSS Canvas</li>
+          </ul>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Network Theory</span>
+            <div class="project-links">
+              <a href="#" aria-label="Source Code" class="project-link-icon"><i class="fab fa-github"></i></a>
+              <a href="#" aria-label="External Link" class="project-link-icon"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Global Trade Network Analysis</h3>
+          <p class="project-description">
+            Graph-based visualization mapping global trade flows, vulnerability indices, and the cascade effects of tariff shocks and supply chain disruptions across international networks.
+          </p>
+          
+          <div class="project-visual">
+            <div class="network-visual">
+              <svg viewBox="0 0 100 50" class="network-svg">
+                <line x1="20" y1="25" x2="50" y2="10" stroke="#30363d" stroke-width="1" />
+                <line x1="20" y1="25" x2="50" y2="40" stroke="#30363d" stroke-width="1" />
+                <line x1="50" y1="10" x2="80" y2="25" stroke="#30363d" stroke-width="1" />
+                <line x1="50" y1="40" x2="80" y2="25" stroke="#30363d" stroke-width="1" />
+                <line x1="50" y1="10" x2="50" y2="40" stroke="#30363d" stroke-width="1" />
+                <circle cx="20" cy="25" r="4" fill="#4c9699" />
+                <circle cx="50" cy="10" r="5" fill="#e5c07b" />
+                <circle cx="50" cy="40" r="5" fill="#e5c07b" />
+                <circle cx="80" cy="25" r="4" fill="#ef596f" />
+              </svg>
+            </div>
+          </div>
+          
+          <ul class="project-tech-list">
+            <li>NetworkX</li>
+            <li>Pandas</li>
+            <li>D3.js</li>
+            <li>SVG</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-number">03.</span>
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3 class="contact-info-title">// Connect Details</h3>
+          <p class="contact-info-desc">
+            I am always open to discussing research collaborations, policy consulting opportunities, or data visualization projects.
+          </p>
+          
+          <ul class="contact-list">
+            <li>
+              <span class="contact-label"><i class="fas fa-envelope"></i> Email:</span>
+              <a href="mailto:siwat.t@example.com" class="contact-link">siwat.t@example.com</a>
+            </li>
+            <li>
+              <span class="contact-label"><i class="fab fa-github"></i> GitHub:</span>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/siwat-t</a>
+            </li>
+            <li>
+              <span class="contact-label"><i class="fab fa-linkedin"></i> LinkedIn:</span>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="contact-link">linkedin.com/in/siwat-t</a>
+            </li>
+            <li>
+              <span class="contact-label"><i class="fas fa-graduation-cap"></i> Scholar:</span>
+              <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="contact-link">Google Scholar</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="contact-form-container">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="form-name">Name</label>
+                <input type="text" id="form-name" required placeholder="John Doe">
+              </div>
+              <div class="form-group">
+                <label for="form-email">Email</label>
+                <input type="email" id="form-email" required placeholder="john@example.com">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-subject">Subject</label>
+              <input type="text" id="form-subject" required placeholder="Collaboration Proposal">
+            </div>
+            
+            <div class="form-group">
+              <label for="form-message">Message</label>
+              <textarea id="form-message" required placeholder="Your message here..." rows="5"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-submit">
+              Send Message <span class="send-icon">&rarr;</span>
+            </button>
+            <div class="toast-message" id="toast-message">Message sent successfully!</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 Siwat Teimmtad. All rights reserved.</p>
+      <p class="footer-credit">Built with JetBrains Mono, Vanilla CSS & JS</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
