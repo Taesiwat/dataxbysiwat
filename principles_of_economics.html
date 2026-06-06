@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ten Principles of Economics | Siwat Teimtad</title>
+  <meta name="description" content="An in-depth analysis of Gregory Mankiw's Ten Principles of Economics with practical examples, written by Siwat Teimtad.">
+  
+  <!-- JetBrains Mono Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Article Page Specific Styling */
+    .article-section {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      min-height: 100vh;
+    }
+    
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .article-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--color-secondary);
+      margin-bottom: 32px;
+      transition: color var(--transition-fast);
+    }
+    
+    .article-back-link:hover {
+      color: var(--color-primary);
+    }
+    
+    .article-header {
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 32px;
+    }
+    
+    .article-meta {
+      display: flex;
+      gap: 24px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    
+    .article-meta span i {
+      color: var(--color-primary);
+      margin-right: 6px;
+    }
+    
+    .article-title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    
+    .article-content {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+    
+    .article-content p {
+      margin-bottom: 24px;
+      color: var(--text-muted);
+    }
+    
+    .article-content strong {
+      color: var(--text-main);
+    }
+    
+    .principle-group {
+      margin-top: 48px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+    
+    .group-title {
+      font-size: 1.2rem;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    
+    .principle-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 32px;
+      transition: border-color var(--transition-fast);
+    }
+    
+    .principle-card:hover {
+      border-color: var(--border-focus);
+    }
+    
+    .principle-num {
+      font-size: 0.8rem;
+      color: var(--color-secondary);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .principle-heading {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+    
+    .principle-example {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background-color: rgba(229, 192, 123, 0.03);
+      border-left: 3px solid var(--color-primary);
+      border-radius: 0 4px 4px 0;
+    }
+    
+    .example-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    
+    .example-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Matrix Digital Rain Background -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <span class="logo-symbol">&lt;ST/&gt;</span>
+        <span class="logo-text">Siwat Teimtad</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="index.html#about" class="nav-link">.about()</a>
+        <a href="index.html#sandbox" class="nav-link">.sandbox()</a>
+        <a href="index.html#projects" class="nav-link">.projects()</a>
+        <a href="index.html#contact" class="nav-link">.contact()</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Article Section -->
+  <main class="article-section">
+    <div class="article-container">
+      <a href="index.html#projects" class="article-back-link">
+        <i class="fas fa-arrow-left"></i> back to projects
+      </a>
+      
+      <article>
+        <header class="article-header">
+          <div class="article-meta">
+            <span><i class="fas fa-user"></i> Siwat Teimtad</span>
+            <span><i class="fas fa-calendar-alt"></i> June 2026</span>
+            <span><i class="fas fa-book"></i> Research & Theory</span>
+          </div>
+          <h1 class="article-title">The Ten Principles of Economics</h1>
+          <p class="article-subtitle">
+            A comprehensive overview and practical guide to N. Gregory Mankiw's foundational concepts of economic analysis.
+          </p>
+        </header>
+        
+        <div class="article-content">
+          <p>
+            Economics is the study of how society manages its scarce resources. In a world of scarcity, where resources are limited and human desires are virtually unlimited, choices must be made. To understand how individuals, households, firms, and societies navigate these choices, N. Gregory Mankiw outlined <strong>Ten Principles of Economics</strong> in his seminal textbook. These principles are divided into three broad categories: how people make decisions, how people interact, and how the economy as a whole works.
+          </p>
+          
+          <!-- GROUP 1 -->
+          <div class="principle-group">
+            <h2 class="group-title">// Part 1: How People Make Decisions</h2>
+          </div>
+          
+          <!-- Principle 1 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 01</span>
+            <h3 class="principle-heading">People Face Trade-offs</h3>
+            <p>
+              To get something we like, we usually have to give up something else we also like. Making decisions requires trading off one goal against another. A classic trade-off is between "guns and butter"—the more a society spends on national defense (guns), the less it can spend on consumer goods (butter) to raise its standard of living.
+            </p>
+            <p>
+              Another key trade-off modern societies face is between <strong>efficiency</strong> (getting the maximum benefits from scarce resources) and <strong>equality</strong> (distributing those benefits uniformly among society's members). When government policies try to redistribute income from the wealthy to the poor, they reduce the reward for working hard, leading to a smaller economic pie.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Time Allocation</div>
+              <p class="example-body">
+                A college student faces a trade-off in allocating her time. For every hour she spends studying Economics, she gives up an hour she could spend studying Mathematics, sleeping, socializing, or working at a part-time job to earn spending money.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 2 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 02</span>
+            <h3 class="principle-heading">The Cost of Something Is What You Give Up to Get It</h3>
+            <p>
+              Because people face trade-offs, making decisions requires comparing the costs and benefits of alternative courses of action. In many cases, the cost of an action is not as obvious as it first appears. The <strong>opportunity cost</strong> of an item is what you give up to obtain that item.
+            </p>
+            <p>
+              When evaluating choices, decision-makers must account for the implicit opportunity costs alongside explicit monetary outlays. Neglecting opportunity costs often leads to flawed economic decisions.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Attending University</div>
+              <p class="example-body">
+                The explicit cost of going to college includes tuition, books, and fees. However, the largest cost is implicit: the wages you forgone by choosing to study full-time rather than entering the workforce. For most students, their forgone earnings are the single largest cost of their education.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 3 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 03</span>
+            <h3 class="principle-heading">Rational People Think at the Margin</h3>
+            <p>
+              Economists assume that people are rational. <strong>Rational people</strong> systematically and purposefully do the best they can to achieve their objectives, given the opportunities they have. They make decisions by comparing <strong>marginal benefits</strong> and <strong>marginal costs</strong>.
+            </p>
+            <p>
+              A marginal change is a small incremental adjustment to an existing plan of action. A rational decision-maker takes an action if and only if the marginal benefit of the action exceeds its marginal cost. This explains why water is cheap while diamonds are expensive: water is essential, but its marginal benefit is low because it is abundant; diamonds are non-essential, but their marginal benefit is high because they are rare.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Standby Airline Tickets</div>
+              <p class="example-body">
+                An airline has a 200-seat plane, and flying it costs $100,000 (an average cost of $500 per seat). If the plane is about to take off with 10 empty seats and a standby passenger is willing to pay $300 for a ticket, the airline should sell it. The marginal cost of adding one passenger is merely the cost of their in-flight snack and a tiny fraction of fuel, which is far below the $300 marginal benefit.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 4 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 04</span>
+            <h3 class="principle-heading">People Respond to Incentives</h3>
+            <p>
+              An <strong>incentive</strong> is something (such as a prospect of punishment or reward) that induces a person to act. Because rational people make decisions by comparing costs and benefits, they respond to incentives. 
+            </p>
+            <p>
+              Incentives are crucial in analyzing how markets work. For instance, when the price of apples rises, consumers buy fewer apples, and orchard owners hire more workers to harvest more apples. Public policymakers must always consider incentives, as policies that fail to account for behavioral changes often produce unintended consequences.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Seat Belt Legislation</div>
+              <p class="example-body">
+                When the government passed laws requiring seat belts in cars, the direct benefit was higher survival rates during accidents. However, seat belts also reduced the cost of reckless driving by making accidents less dangerous. As an incentive response, drivers drove faster and less carefully, resulting in more accidents overall and an increase in pedestrian deaths.
+              </p>
+            </div>
+          </div>
+
+          <!-- GROUP 2 -->
+          <div class="principle-group">
+            <h2 class="group-title">// Part 2: How People Interact</h2>
+          </div>
+
+          <!-- Principle 5 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 05</span>
+            <h3 class="principle-heading">Trade Can Make Everyone Better Off</h3>
+            <p>
+              Trade is not like a sports contest where one side wins and the other loses. In fact, trade between two entities (individuals, families, or countries) can make both sides better off.
+            </p>
+            <p>
+              Trade allows individuals and nations to specialize in the activities they do best, whether it is farming, writing software, or manufacturing. By trading with others, people can buy a greater variety of goods and services at a lower cost than they could if they attempted to produce everything themselves.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: International Specialization</div>
+              <p class="example-body">
+                The United States possesses advanced technology and capital, making it highly efficient at producing commercial aircraft. Thailand has a comparative advantage in agricultural production, such as rice. By trading Boeing jets for Thai jasmine rice, both nations consume more of both goods than they could in isolation.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 6 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 06</span>
+            <h3 class="principle-heading">Markets Are Usually a Good Way to Organize Economic Activity</h3>
+            <p>
+              In a <strong>market economy</strong>, the decisions of a central planner are replaced by the decisions of millions of firms and households. Firms decide whom to hire and what to make. Households decide which firms to work for and what to buy with their incomes. These firms and households interact in the marketplace, where prices and self-interest guide their decisions.
+            </p>
+            <p>
+              Adam Smith famously observed that households and firms interacting in markets act as if they are guided by an <strong>"invisible hand"</strong> that leads them to desirable market outcomes. Prices are the instrument with which the invisible hand directs economic activity, reflecting both the value of a good to society and the cost to society of making it.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Dynamic Pricing of Ride-Sharing</div>
+              <p class="example-body">
+                During rush hour or heavy rain, ride-sharing services like Uber automatically raise prices (surge pricing). This higher price serves as a market signal: it discourages passengers who do not urgently need a ride (demand falls) and incentivizes more drivers to log onto the network (supply rises), effectively resolving the shortage without central planning.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 7 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 07</span>
+            <h3 class="principle-heading">Governments Can Sometimes Improve Market Outcomes</h3>
+            <p>
+              If the invisible hand of the market is so great, why do we need government? One reason is that the invisible hand can work its magic only if the government enforces the rules and maintains the institutions that are key to a market economy. Most importantly, markets need <strong>property rights</strong> so individuals can own and control scarce resources.
+            </p>
+            <p>
+              Furthermore, governments intervene to address <strong>market failures</strong>—situations in which a market left on its own fails to allocate resources efficiently. Market failures can occur due to:
+            </p>
+            <ul>
+              <li><strong>Externalities</strong>: The impact of one person's actions on the well-being of a bystander (e.g., pollution).</li>
+              <li><strong>Market Power</strong>: The ability of a single economic actor (or small group) to unduly influence market prices (e.g., a monopoly).</li>
+            </ul>
+            <div class="principle-example">
+              <div class="example-title">Example: Environmental Regulations</div>
+              <p class="example-body">
+                A chemical plant does not bear the full social cost of polluting a nearby river if it is free to dump waste. Because the market price of chemicals fails to reflect the environmental damage, the government can improve efficiency by taxing the factory's pollution emissions, forcing it to internalize the external cost.
+              </p>
+            </div>
+          </div>
+
+          <!-- GROUP 3 -->
+          <div class="principle-group">
+            <h2 class="group-title">// Part 3: How the Economy as a Whole Works</h2>
+          </div>
+
+          <!-- Principle 8 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 08</span>
+            <h3 class="principle-heading">A Country's Standard of Living Depends on Its Ability to Produce Goods and Services</h3>
+            <p>
+              The differences in living standards around the world are staggering. In 2026, citizens in high-income nations enjoy better healthcare, nutrition, housing, and life expectancy than citizens in low-income nations. Almost all variation in living standards is attributable to differences in nations' <strong>productivity</strong>.
+            </p>
+            <p>
+              Productivity is the amount of goods and services produced from each hour of a worker’s time. In nations where workers can produce a large quantity of goods and services per unit of time, most people enjoy a high standard of living. To boost living standards, policymakers need to raise productivity by ensuring workers are well educated, have the tools needed to produce goods, and have access to the best technology.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Manufacturing Automation</div>
+              <p class="example-body">
+                A factory worker in Germany equipped with advanced robotics and computer systems can manufacture 10 times more automotive parts per day than a worker using manual hand tools. Consequently, the German worker has higher productivity, receives a higher wage, and enjoys a superior standard of living.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 9 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 09</span>
+            <h3 class="principle-heading">Prices Rise When the Government Prints Too Much Money</h3>
+            <p>
+              <strong>Inflation</strong> is an increase in the overall level of prices in the economy. Because high inflation imposes various costs on society, keeping inflation at a moderate level is a primary goal of economic policymakers.
+            </p>
+            <p>
+              In almost all cases of large or persistent inflation, the culprit is growth in the quantity of money. When a government creates large quantities of the nation's money, the value of the money falls, causing prices to rise across the economy.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Weimar Germany Hyperinflation</div>
+              <p class="example-body">
+                In Germany in 1923, the government printed money at extreme rates to pay off war reparations. The quantity of money grew so fast that a newspaper that cost 0.30 marks in 1921 cost 70,000,000 marks by late 1923, forcing workers to carry wages in wheelbarrows as the currency lost value hourly.
+              </p>
+            </div>
+          </div>
+
+          <!-- Principle 10 -->
+          <div class="principle-card">
+            <span class="principle-num">Principle 10</span>
+            <h3 class="principle-heading">Society Faces a Short-run Trade-off Between Inflation and Unemployment</h3>
+            <p>
+              Although a higher money supply leads to inflation in the long run, the short-run effect is more complex. Most economists describe the short-run effects of monetary injections as follows:
+            </p>
+            <ol>
+              <li>Increasing the amount of money in the economy stimulates the overall level of spending and thus the demand for goods and services.</li>
+              <li>Higher demand may, over time, cause firms to raise their prices, but in the meantime, it encourages them to hire more workers and produce a larger quantity of goods and services.</li>
+              <li>More hiring means lower unemployment.</li>
+            </ol>
+            <p>
+              This short-run trade-off between inflation and unemployment is illustrated by the <strong>Phillips Curve</strong>. It plays a key role in the analysis of the business cycle—the irregular and largely unpredictable fluctuations in economic activity.
+            </p>
+            <div class="principle-example">
+              <div class="example-title">Example: Central Bank Interest Rate Adjustments</div>
+              <p class="example-body">
+                When a central bank lowers interest rates, it expands the money supply. Businesses borrow more to build factories and consumers spend more on homes. In the short run, this surge in demand drives economic growth and reduces unemployment, but at the cost of rising price inflation down the road.
+              </p>
+            </div>
+          </div>
+          
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 Siwat Teimtad. All rights reserved.</p>
+      <p class="footer-credit">Built with JetBrains Mono, Vanilla CSS & JS</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
