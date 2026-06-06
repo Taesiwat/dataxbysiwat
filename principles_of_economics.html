@@ -109,11 +109,13 @@
     }
     
     .principle-card {
-      background-color: var(--bg-secondary);
+      background-color: #12161f; /* Explicit solid dark background */
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 32px;
       margin-bottom: 32px;
+      position: relative;
+      z-index: 2; /* Force overlay in front of matrix canvas rain */
       transition: border-color var(--transition-fast);
     }
     
@@ -140,7 +142,7 @@
     .principle-example {
       margin-top: 20px;
       padding: 16px 20px;
-      background-color: rgba(229, 192, 123, 0.03);
+      background-color: #161c24; /* Solid color to improve text legibility */
       border-left: 3px solid var(--color-primary);
       border-radius: 0 4px 4px 0;
     }
