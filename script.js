@@ -213,4 +213,100 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ==========================================================================
+  // 5. Matrix Digital Rain Animation
+  // ==========================================================================
+  const canvas = document.getElementById('matrix-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+    
+    // Alphanumeric + Japanese Katakana characters
+    const katakana = "ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
+    const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" + katakana;
+    const characters = alphabet.split("");
+    
+    const fontSize = 16;
+    let columns = Math.floor(width / fontSize);
+    
+    const rainDrops = [];
+    for (let x = 0; x < columns; x++) {
+      rainDrops[x] = Math.random() * -100; // start offscreen with random delay
+    }
+    
+    const draw = () => {
+      // Semi-transparent overlay to create trailing effect
+      ctx.fillStyle = "rgba(10, 12, 16, 0.08)";
+      ctx.fillRect(0, 0, width, height);
+      
+      ctx.font = fontSize + "px monospace";
+      
+      for (let i = 0; i < rainDrops.length; i++) {
+        // Random character
+        const text = characters[Math.floor(Math.random() * characters.length)];
+        const xCoord = i * fontSize;
+        const yCoord = rainDrops[i] * fontSize;
+        
+        // Only draw on screen to optimize
+        if (yCoord > 0 && yCoord < height + fontSize) {
+          // Render character shadow / trail color (classic matrix green)
+          ctx.fillStyle = "#00ff66";
+          ctx.fillText(text, xCoord, yCoord - fontSize);
+          
+          // Render the glowing head character in bright white
+          ctx.fillStyle = "#ffffff";
+          ctx.fillText(text, xCoord, yCoord);
+        }
+        
+        // Reset drop to top with randomized delay once it goes offscreen
+        if (yCoord > height && Math.random() > 0.975) {
+          rainDrops[i] = 0;
+        }
+        
+        rainDrops[i]++;
+      }
+    };
+    
+    // Limit frame rate to ~30 FPS to save CPU and reduce visual clutter
+    let lastTime = 0;
+    const fps = 30;
+    const nextFrame = 1000 / fps;
+    let timer = 0;
+    
+    function animate(timestamp) {
+      const deltaTime = timestamp - lastTime;
+      lastTime = timestamp;
+      
+      if (timer > nextFrame) {
+        draw();
+        timer = 0;
+      } else {
+        timer += deltaTime;
+      }
+      
+      requestAnimationFrame(animate);
+    }
+    
+    requestAnimationFrame(animate);
+    
+    // Handle Window Resizing
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      columns = Math.floor(width / fontSize);
+      
+      // Pad or trim drop positions
+      const currentLen = rainDrops.length;
+      if (columns > currentLen) {
+        for (let x = currentLen; x < columns; x++) {
+          rainDrops[x] = Math.random() * -100;
+        }
+      } else if (columns < currentLen) {
+        rainDrops.length = columns;
+      }
+    });
+  }
 });

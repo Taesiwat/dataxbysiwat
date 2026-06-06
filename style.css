@@ -51,10 +51,27 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.12;
+}
+
+section, header, footer {
+  position: relative;
+  z-index: 1;
+}
+
 body {
   min-height: 100vh;
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
 }
 
 a {
