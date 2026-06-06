@@ -22,117 +22,361 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 2. Taylor Rule Simulator
+  // 2. Market Efficiency & Policy Simulator (Mankiw's Principles)
   // ==========================================================================
-  const inputInflation = document.getElementById('input-inflation');
-  const inputOutputGap = document.getElementById('input-outputgap');
-  const valInflation = document.getElementById('val-inflation');
-  const valOutputGap = document.getElementById('val-outputgap');
+  const scenarioSelect = document.getElementById('sandbox-scenario');
   
-  const targetRateVal = document.getElementById('target-rate-val');
-  const policyStance = document.getElementById('policy-stance');
-  const gaugeFill = document.getElementById('gauge-fill');
-  const simulationNarrative = document.getElementById('simulation-narrative');
+  // Policy Sliders and Groups
+  const groupTax = document.getElementById('group-tax');
+  const groupControl = document.getElementById('group-control');
+  const groupExternality = document.getElementById('group-externality');
+  
+  const inputTax = document.getElementById('input-tax');
+  const inputPriceControl = document.getElementById('input-price-control');
+  const inputExternality = document.getElementById('input-externality');
+  const inputExtTax = document.getElementById('input-ext-tax');
+  
+  const valTax = document.getElementById('val-tax');
+  const valPriceControl = document.getElementById('val-price-control');
+  const valExternality = document.getElementById('val-externality');
+  const valExtTax = document.getElementById('val-ext-tax');
+  
+  const typeCeiling = document.getElementById('type-ceiling');
+  const typeFloor = document.getElementById('type-floor');
 
-  // Constants
-  const PI_STAR = 2.0; // Target Inflation
-  const R_STAR = 2.0;  // Equilibrium Real Interest Rate
+  // SVG and Labels
+  const lineSupply = document.getElementById('line-supply');
+  const lineSocialSupply = document.getElementById('line-social-supply');
+  const linePriceControl = document.getElementById('line-price-control');
+  const pointEq = document.getElementById('point-eq');
+  const pointSocial = document.getElementById('point-social');
+  const eqSocialSupply = document.getElementById('eq-social-supply');
+  
+  const polyCs = document.getElementById('poly-cs');
+  const polyPs = document.getElementById('poly-ps');
+  const polyGov = document.getElementById('poly-gov');
+  const polyDwl = document.getElementById('poly-dwl');
+  const polyDamage = document.getElementById('poly-damage');
 
-  function updateSimulation() {
-    if (!inputInflation || !inputOutputGap) return;
+  // Stats Readouts
+  const statCs = document.getElementById('stat-cs');
+  const statPs = document.getElementById('stat-ps');
+  const statOptLabel = document.getElementById('stat-opt-label');
+  const statOptValue = document.getElementById('stat-opt-value');
+  const statWelfare = document.getElementById('stat-welfare');
+  const statDwl = document.getElementById('stat-dwl');
+  const marketNarrative = document.getElementById('market-narrative');
 
-    const pi = parseFloat(inputInflation.value); // Current Inflation
-    const y = parseFloat(inputOutputGap.value);  // Output Gap
+  // SVG Coordinates Mapping: Q on X (0-16 -> 40-260), P on Y (0-16 -> 260-40)
+  const mapQtoX = (q) => 40 + (q / 16) * 220;
+  const mapPtoY = (p) => 260 - (p / 16) * 220;
 
-    // Update slider value displays
-    valInflation.textContent = `${pi.toFixed(1)}%`;
-    valOutputGap.textContent = `${y.toFixed(1)}%`;
+  function updateMarketSimulation() {
+    if (!scenarioSelect) return;
 
-    // Taylor Rule: i = r* + pi + 0.5*(pi - pi*) + 0.5*y
-    let targetRate = R_STAR + pi + 0.5 * (pi - PI_STAR) + 0.5 * y;
+    const scenario = scenarioSelect.value;
     
-    // Check for Zero Lower Bound (ZLB)
-    const isZlb = targetRate <= 0;
-    const nominalRate = isZlb ? 0.0 : targetRate;
+    // Core parameters to compute
+    let tax = 0;
+    let externality = 0;
+    let priceControl = null;
+    let isCeiling = true;
 
-    // Update gauge text
-    targetRateVal.textContent = isZlb 
-      ? `0.00%*` 
-      : `${nominalRate.toFixed(2)}%`;
-
-    // Categorize Policy Stance
-    let stance = '';
-    let accentColor = '';
-    
-    if (isZlb) {
-      stance = 'ZLB CONSTRAINED';
-      accentColor = 'var(--color-secondary)'; // Muted teal
-    } else if (nominalRate < 3.5) {
-      stance = 'ACCOMMODATIVE';
-      accentColor = 'var(--color-secondary)'; // Teal
-    } else if (nominalRate >= 3.5 && nominalRate <= 4.5) {
-      stance = 'NEUTRAL';
-      accentColor = 'var(--color-primary)'; // Amber Gold
-    } else {
-      stance = 'RESTRICTIVE';
-      accentColor = 'var(--color-danger)'; // Rose Red
+    // Toggle slider controls visibility based on Scenario
+    if (scenario === 'tax') {
+      groupTax.style.display = 'block';
+      groupControl.style.display = 'none';
+      groupExternality.style.display = 'none';
+      
+      tax = parseFloat(inputTax.value);
+      valTax.textContent = `$${tax.toFixed(2)}`;
+      
+      lineSocialSupply.style.display = 'none';
+      linePriceControl.style.display = 'none';
+      pointSocial.style.display = 'none';
+      eqSocialSupply.textContent = 'Social Cost (Supply + Externality): P = Q';
+      statOptLabel.textContent = 'TAX REVENUE';
+    } 
+    else if (scenario === 'control') {
+      groupTax.style.display = 'none';
+      groupControl.style.display = 'block';
+      groupExternality.style.display = 'none';
+      
+      priceControl = parseFloat(inputPriceControl.value);
+      valPriceControl.textContent = `$${priceControl.toFixed(2)}`;
+      isCeiling = typeCeiling.checked;
+      
+      lineSocialSupply.style.display = 'none';
+      linePriceControl.style.display = 'block';
+      pointSocial.style.display = 'none';
+      eqSocialSupply.textContent = 'Social Cost (Supply + Externality): P = Q';
+      statOptLabel.textContent = 'GOV. REVENUE';
+      
+      // Draw Price Control Line
+      linePriceControl.setAttribute('y1', mapPtoY(priceControl));
+      linePriceControl.setAttribute('y2', mapPtoY(priceControl));
+    } 
+    else if (scenario === 'externality') {
+      groupTax.style.display = 'none';
+      groupControl.style.display = 'none';
+      groupExternality.style.display = 'block';
+      
+      externality = parseFloat(inputExternality.value);
+      tax = parseFloat(inputExtTax.value);
+      
+      valExternality.textContent = `$${externality.toFixed(2)}`;
+      valExtTax.textContent = `$${tax.toFixed(2)}`;
+      
+      lineSocialSupply.style.display = 'block';
+      linePriceControl.style.display = 'none';
+      pointSocial.style.display = 'block';
+      eqSocialSupply.textContent = `Social Cost (Supply + Externality): P = Q + ${externality.toFixed(1)}`;
+      statOptLabel.textContent = 'EXTERNAL DAMAGE';
+      
+      // Draw Social Supply Line (Shifted Up by Externality Cost)
+      lineSocialSupply.setAttribute('x1', mapQtoX(0));
+      lineSocialSupply.setAttribute('y1', mapPtoY(externality));
+      lineSocialSupply.setAttribute('x2', mapQtoX(16 - externality));
+      lineSocialSupply.setAttribute('y2', mapPtoY(16));
     }
 
-    policyStance.textContent = stance;
-    policyStance.style.color = accentColor;
-    policyStance.style.backgroundColor = `${accentColor}1A`; // 10% opacity hex
-    
-    // Update Gauge Arc
-    // Dasharray of the gauge track path is approx 380
-    const maxRate = 12.0;
-    const minRate = -2.0;
-    let percent = (targetRate - minRate) / (maxRate - minRate);
-    percent = Math.max(0, Math.min(1, percent)); // Clamp 0 to 1
-    
-    const maxOffset = 380;
-    const offset = maxOffset - (percent * maxOffset);
-    
-    gaugeFill.style.strokeDashoffset = offset;
-    gaugeFill.style.stroke = accentColor;
+    // ==========================================
+    // Economic Math Calculations
+    // Market Equations: Demand: P = 16 - Q | Supply: Private P = Q
+    // ==========================================
+    let q = 8;
+    let pBuyer = 8;
+    let pSeller = 8;
+    let cs = 32;
+    let ps = 32;
+    let govRev = 0;
+    let extDamage = 0;
+    let welfare = 64;
+    let dwl = 0;
 
-    // Generate Narrative Explanation
-    let narrative = '';
-    
-    const inflationDev = pi - PI_STAR;
-    const inflationDesc = inflationDev > 0 
-      ? `above the ${PI_STAR.toFixed(1)}% target (deviation of +${inflationDev.toFixed(1)}%)`
-      : inflationDev < 0 
-        ? `below the ${PI_STAR.toFixed(1)}% target (deviation of ${inflationDev.toFixed(1)}%)`
-        : `exactly at the ${PI_STAR.toFixed(1)}% target`;
-
-    const gapDesc = y > 0
-      ? `indicating an economy operating above potential capacity (overheating gap of +${y.toFixed(1)}%)`
-      : y < 0
-        ? `reflecting economic slack and resources underutilization (recessionary gap of ${y.toFixed(1)}%)`
-        : `indicating an economy in macroeconomic equilibrium`;
-
-    narrative += `Inflation is ${inflationDesc}, while the output gap is ${y.toFixed(1)}%, ${gapDesc}. `;
-
-    if (isZlb) {
-      narrative += `The standard Taylor Rule formula recommends a negative nominal rate of <strong>${targetRate.toFixed(2)}%</strong>. However, due to the <strong>Zero Lower Bound (ZLB)</strong>, policy is constrained at 0.00% to maximize monetary expansion and prevent deflationary spirals.`;
-    } else if (nominalRate < 3.5) {
-      narrative += `Given these conditions, the rule prescribes a stimulative target policy rate of <strong>${nominalRate.toFixed(2)}%</strong>. This expansionary stance aims to close the economic slack and pull inflation back up to the target.`;
-    } else if (nominalRate >= 3.5 && nominalRate <= 4.5) {
-      narrative += `The rule prescribes a balanced, neutral interest rate of <strong>${nominalRate.toFixed(2)}%</strong>, signaling that economic growth and inflation expectations are sustainable and require no active tightening or easing.`;
+    // Shift Private Supply curve visually if Tax is applied
+    if (tax > 0 && scenario !== 'control') {
+      lineSupply.setAttribute('x1', mapQtoX(0));
+      lineSupply.setAttribute('y1', mapPtoY(tax));
+      lineSupply.setAttribute('x2', mapQtoX(16 - tax));
+      lineSupply.setAttribute('y2', mapPtoY(16));
     } else {
-      narrative += `To cool aggregate demand and stabilize inflation, the rule prescribes a tight, restrictive rate of <strong>${nominalRate.toFixed(2)}%</strong>. Higher borrowing costs are needed to prevent wages and prices from spiraling.`;
+      lineSupply.setAttribute('x1', mapQtoX(0));
+      lineSupply.setAttribute('y1', mapPtoY(0));
+      lineSupply.setAttribute('x2', mapQtoX(16));
+      lineSupply.setAttribute('y2', mapPtoY(16));
     }
 
-    simulationNarrative.innerHTML = narrative;
+    if (scenario === 'tax') {
+      // With tax T: Q = 8 - 0.5T | P_Buyer = 8 + 0.5T | P_Seller = 8 - 0.5T
+      q = 8 - 0.5 * tax;
+      pBuyer = 8 + 0.5 * tax;
+      pSeller = 8 - 0.5 * tax;
+      
+      cs = 0.5 * (8 - 0.5 * tax) * (8 - 0.5 * tax);
+      ps = cs;
+      govRev = tax * q;
+      welfare = cs + ps + govRev;
+      dwl = 64 - welfare;
+      
+      // Update SVG Polygons
+      polyCs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(16)} ${mapQtoX(0)},${mapPtoY(pBuyer)} ${mapQtoX(q)},${mapPtoY(pBuyer)}`);
+      polyPs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(0)} ${mapQtoX(0)},${mapPtoY(pSeller)} ${mapQtoX(q)},${mapPtoY(pSeller)}`);
+      polyGov.setAttribute('points', `${mapQtoX(0)},${mapPtoY(pSeller)} ${mapQtoX(0)},${mapPtoY(pBuyer)} ${mapQtoX(q)},${mapPtoY(pBuyer)} ${mapQtoX(q)},${mapPtoY(pSeller)}`);
+      polyDwl.setAttribute('points', `${mapQtoX(q)},${mapPtoY(pSeller)} ${mapQtoX(q)},${mapPtoY(pBuyer)} ${mapQtoX(8)},${mapPtoY(8)}`);
+      polyDamage.setAttribute('points', '');
+      
+      // Set points
+      pointEq.setAttribute('cx', mapQtoX(q));
+      pointEq.setAttribute('cy', mapPtoY(pBuyer));
+      
+      // Stats
+      statCs.textContent = `$${cs.toFixed(2)}`;
+      statPs.textContent = `$${ps.toFixed(2)}`;
+      statOptValue.textContent = `$${govRev.toFixed(2)}`;
+      statWelfare.textContent = `$${welfare.toFixed(2)}`;
+      statDwl.textContent = `$${dwl.toFixed(2)}`;
+      
+      // Narrative
+      let narrative = `Imposing a unit tax of <strong>$${tax.toFixed(2)}</strong> drives a wedge between the price buyers pay ($${pBuyer.toFixed(2)}) and the price sellers receive ($${pSeller.toFixed(2)}). `;
+      if (tax > 0) {
+        narrative += `This shrinks transacted output to <strong>${q.toFixed(1)}</strong> units, destroying mutually beneficial trades. The resulting inefficiency creates a <strong>Deadweight Loss (DWL) of $${dwl.toFixed(2)}</strong>. This demonstrates <strong>Principle 4</strong>: people respond to tax incentives, altering their behaviors.`;
+      } else {
+        narrative += `With no taxes, the market operates at maximum efficiency. Total welfare is maximized at $64.00, confirming <strong>Principle 6</strong>: markets are usually a good way to organize economic activity.`;
+      }
+      marketNarrative.innerHTML = narrative;
+    } 
+    else if (scenario === 'control') {
+      let isBinding = false;
+      
+      if (isCeiling) {
+        // Ceiling is binding if it is BELOW free market equilibrium ($8.00)
+        isBinding = priceControl < 8.0;
+        if (isBinding) {
+          q = priceControl; // Quantity transacted is limited by sellers
+          pBuyer = 16 - q;  // Price consumers are willing to pay for this quantity
+          pSeller = priceControl;
+          
+          cs = q * (16 - 1.5 * q);
+          ps = 0.5 * q * q;
+          welfare = q * (16 - q);
+          dwl = 64 - welfare;
+        }
+      } else {
+        // Floor is binding if it is ABOVE free market equilibrium ($8.00)
+        isBinding = priceControl > 8.0;
+        if (isBinding) {
+          q = 16 - priceControl; // Quantity transacted is limited by buyers
+          pBuyer = priceControl;
+          pSeller = q; // Lowest price sellers are willing to accept for this Q
+          
+          cs = 0.5 * q * q;
+          ps = q * (1.5 * priceControl - 8);
+          welfare = q * (16 - q);
+          dwl = 64 - welfare;
+        }
+      }
+
+      if (!isBinding) {
+        q = 8;
+        pBuyer = 8;
+        pSeller = 8;
+        cs = 32;
+        ps = 32;
+        welfare = 64;
+        dwl = 0;
+        
+        polyCs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(16)} ${mapQtoX(0)},${mapPtoY(8)} ${mapQtoX(8)},${mapPtoY(8)}`);
+        polyPs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(0)} ${mapQtoX(0)},${mapPtoY(8)} ${mapQtoX(8)},${mapPtoY(8)}`);
+        polyGov.setAttribute('points', '');
+        polyDwl.setAttribute('points', '');
+        polyDamage.setAttribute('points', '');
+        pointEq.setAttribute('cx', mapQtoX(8));
+        pointEq.setAttribute('cy', mapPtoY(8));
+      } else {
+        if (isCeiling) {
+          // Binding Ceiling Polygons
+          polyCs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(16)} ${mapQtoX(0)},${mapPtoY(priceControl)} ${mapQtoX(q)},${mapPtoY(priceControl)} ${mapQtoX(q)},${mapPtoY(pBuyer)}`);
+          polyPs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(0)} ${mapQtoX(0)},${mapPtoY(priceControl)} ${mapQtoX(q)},${mapPtoY(priceControl)}`);
+        } else {
+          // Binding Floor Polygons
+          polyCs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(16)} ${mapQtoX(0)},${mapPtoY(priceControl)} ${mapQtoX(q)},${mapPtoY(priceControl)}`);
+          polyPs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(0)} ${mapQtoX(0)},${mapPtoY(priceControl)} ${mapQtoX(q)},${mapPtoY(priceControl)} ${mapQtoX(q)},${mapPtoY(pSeller)}`);
+        }
+        polyGov.setAttribute('points', '');
+        polyDwl.setAttribute('points', `${mapQtoX(q)},${mapPtoY(pSeller)} ${mapQtoX(q)},${mapPtoY(pBuyer)} ${mapQtoX(8)},${mapPtoY(8)}`);
+        polyDamage.setAttribute('points', '');
+        pointEq.setAttribute('cx', mapQtoX(q));
+        pointEq.setAttribute('cy', mapPtoY(priceControl));
+      }
+
+      statCs.textContent = `$${cs.toFixed(2)}`;
+      statPs.textContent = `$${ps.toFixed(2)}`;
+      statOptValue.textContent = `$0.00`;
+      statWelfare.textContent = `$${welfare.toFixed(2)}`;
+      statDwl.textContent = `$${dwl.toFixed(2)}`;
+
+      let narrative = `Imposing a price ${isCeiling ? 'ceiling' : 'floor'} of <strong>$${priceControl.toFixed(2)}</strong> is `;
+      if (isBinding) {
+        const discrepancy = isCeiling ? (16 - 2 * priceControl) : (2 * priceControl - 16);
+        narrative += `<strong>binding</strong>. It restricts transaction volume to <strong>${q.toFixed(1)}</strong> units, creating a <strong>Deadweight Loss of $${dwl.toFixed(2)}</strong>. `;
+        narrative += isCeiling 
+          ? `Because demand exceeds supply, a chronic <strong>shortage of ${discrepancy.toFixed(1)} units</strong> occurs.` 
+          : `Because supply exceeds demand, a market <strong>surplus of ${discrepancy.toFixed(1)} units</strong> accumulates.`;
+        narrative += ` This demonstrates how price controls disrupt Adam Smith's invisible hand, resulting in structural market inefficiency (<strong>Principle 6</strong>).`;
+      } else {
+        narrative += `<strong>non-binding</strong> because it lies ${isCeiling ? 'above' : 'below'} the equilibrium price of $8.00. The market resolves at equilibrium with zero deadweight loss.`;
+      }
+      marketNarrative.innerHTML = narrative;
+    } 
+    else if (scenario === 'externality') {
+      // Social Optimum Q_opt = 8 - 0.5*E
+      const qOpt = 8 - 0.5 * externality;
+      const pOpt = 8 + 0.5 * externality;
+
+      // Actual market transactions with corrective tax T
+      q = 8 - 0.5 * tax;
+      pBuyer = 8 + 0.5 * tax;
+      pSeller = 8 - 0.5 * tax;
+
+      cs = 0.5 * q * q;
+      ps = 0.5 * q * q;
+      govRev = tax * q;
+      extDamage = externality * q;
+      
+      // Social Welfare = CS + PS + Gov - Externality Damage
+      welfare = cs + ps + govRev - extDamage;
+      
+      // DWL = (Q - Q_opt)^2
+      dwl = (q - qOpt) * (q - qOpt);
+
+      // Polygons
+      polyCs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(16)} ${mapQtoX(0)},${mapPtoY(pBuyer)} ${mapQtoX(q)},${mapPtoY(pBuyer)}`);
+      polyPs.setAttribute('points', `${mapQtoX(0)},${mapPtoY(0)} ${mapQtoX(0)},${mapPtoY(pSeller)} ${mapQtoX(q)},${mapPtoY(pSeller)}`);
+      polyGov.setAttribute('points', `${mapQtoX(0)},${mapPtoY(pSeller)} ${mapQtoX(0)},${mapPtoY(pBuyer)} ${mapQtoX(q)},${mapPtoY(pBuyer)} ${mapQtoX(q)},${mapPtoY(pSeller)}`);
+      
+      // Damage polygon is the parallelogram between Private Supply and Social Supply up to Q
+      polyDamage.setAttribute('points', `${mapQtoX(0)},${mapPtoY(0)} ${mapQtoX(0)},${mapPtoY(externality)} ${mapQtoX(q)},${mapPtoY(q + externality)} ${mapQtoX(q)},${mapPtoY(q)}`);
+      
+      // DWL polygon
+      if (q > qOpt) {
+        // Overproduction triangle: from (Q_opt, P_opt) along Social Cost to (Q, Q+E) and along Demand to (Q, 16-Q)
+        polyDwl.setAttribute('points', `${mapQtoX(qOpt)},${mapPtoY(qOpt + externality)} ${mapQtoX(q)},${mapPtoY(q + externality)} ${mapQtoX(q)},${mapPtoY(16 - q)}`);
+      } else if (q < qOpt) {
+        // Underproduction triangle due to over-taxation
+        polyDwl.setAttribute('points', `${mapQtoX(q)},${mapPtoY(q + externality)} ${mapQtoX(q)},${mapPtoY(16 - q)} ${mapQtoX(qOpt)},${mapPtoY(qOpt + externality)}`);
+      } else {
+        polyDwl.setAttribute('points', '');
+      }
+
+      // Points
+      pointEq.setAttribute('cx', mapQtoX(q));
+      pointEq.setAttribute('cy', mapPtoY(pBuyer));
+      
+      pointSocial.setAttribute('cx', mapQtoX(qOpt));
+      pointSocial.setAttribute('cy', mapPtoY(pOpt));
+
+      // Stats
+      statCs.textContent = `$${cs.toFixed(2)}`;
+      statPs.textContent = `$${ps.toFixed(2)}`;
+      statOptValue.textContent = `$${extDamage.toFixed(2)}`; // display pollution damage here
+      statWelfare.textContent = `$${welfare.toFixed(2)}`;
+      statDwl.textContent = `$${dwl.toFixed(2)}`;
+
+      let narrative = `Production generates a negative externality (e.g. pollution) costing <strong>$${externality.toFixed(2)}/unit</strong>. `;
+      if (tax === 0) {
+        narrative += `In the unregulated market, agents ignore the social cost, overproducing at <strong>8.0 units</strong> (optimum is <strong>${qOpt.toFixed(1)}</strong>). This market failure yields a <strong>DWL of $${dwl.toFixed(2)}</strong>. `;
+      } else if (Math.abs(tax - externality) < 0.01) {
+        narrative += `You applied a corrective **Pigouvian Tax of $${tax.toFixed(2)}**, equal to the environmental damage. This perfectly internalizes the externality, shifting market output to the social optimum of <strong>${q.toFixed(1)} units</strong> and **eliminating Deadweight Loss** ($0.00). `;
+      } else {
+        narrative += `You set a tax of $${tax.toFixed(2)}. Output is at ${q.toFixed(1)} units. `;
+        if (tax < externality) {
+          narrative += `The tax is too low; the market is still overproducing, leaving a remaining DWL of $${dwl.toFixed(2)}. `;
+        } else {
+          narrative += `The tax is too high, leading to over-correction and underproduction, creating a DWL of $${dwl.toFixed(2)}. `;
+        }
+      }
+      narrative += `This illustrates <strong>Principle 7</strong>: governments can sometimes improve market outcomes.`;
+      marketNarrative.innerHTML = narrative;
+    }
   }
 
-  // Bind Slider Events
-  if (inputInflation && inputOutputGap) {
-    inputInflation.addEventListener('input', updateSimulation);
-    inputOutputGap.addEventListener('input', updateSimulation);
+  // Bind Scenarios and Sliders
+  if (scenarioSelect) {
+    scenarioSelect.addEventListener('change', updateMarketSimulation);
+    
+    // Sliders
+    inputTax.addEventListener('input', updateMarketSimulation);
+    inputPriceControl.addEventListener('input', updateMarketSimulation);
+    inputExternality.addEventListener('input', updateMarketSimulation);
+    inputExtTax.addEventListener('input', updateMarketSimulation);
+    
+    // Radio Buttons
+    typeCeiling.addEventListener('change', updateMarketSimulation);
+    typeFloor.addEventListener('change', updateMarketSimulation);
     
     // Initial run
-    updateSimulation();
+    updateMarketSimulation();
   }
 
   // ==========================================================================
