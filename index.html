@@ -31,14 +31,13 @@
   <header class="header">
     <div class="nav-container">
       <a href="#" class="logo-container" id="logo-link">
-        <span class="logo-symbol">&lt;ST/&gt;</span>
         <span class="logo-text">Siwat Teimtad</span>
       </a>
       
       <nav class="nav-menu" id="nav-menu">
-        <a href="#about" class="nav-link">.about()</a>
-        <a href="#projects" class="nav-link">.projects()</a>
-        <a href="#contact" class="nav-link">.contact()</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#blog" class="nav-link">Blog</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
       
       <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
@@ -54,91 +53,43 @@
     <div class="grid-overlay"></div>
     <div class="section-container hero-grid">
       <div class="hero-info">
-        <div class="badge">ECONOMIST & CREATOR</div>
-        <h1 class="hero-title">Siwat Teimtad</h1>
-        <p class="hero-subtitle">Analyzing economic complexity through code, data, and interactive models.</p>
-        <p class="hero-desc">
-          I am a quantitative economist and system designer. I combine classical economic theory with modern programming tools to build interactive simulations, analyze monetary policy, and forecast macroeconomic trends.
-        </p>
+        <div class="hero-pretitle">Siwat Teimtad</div>
+        <h1 class="hero-title">Master Your Mind.<br>Design Your Life.</h1>
+        <p class="hero-subtitle">Learn economics, philosophy, and mental models to build the best version of yourself.</p>
         <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#blog" class="btn btn-primary">View Blog</a>
           <a href="#contact" class="btn btn-secondary">Get in Touch</a>
         </div>
       </div>
-      
-      <div class="hero-visual">
-        <div class="visual-canvas">
-          <div class="glowing-orb"></div>
-          <div class="matrix-grid">
-            <svg class="graph-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-              <!-- Grid Lines -->
-              <line x1="50" y1="50" x2="350" y2="50" stroke="#1f242c" stroke-dasharray="4" />
-              <line x1="50" y1="125" x2="350" y2="125" stroke="#1f242c" stroke-dasharray="4" />
-              <line x1="50" y1="200" x2="350" y2="200" stroke="#1f242c" stroke-dasharray="4" />
-              <line x1="50" y1="275" x2="350" y2="275" stroke="#30363d" />
-              
-              <line x1="50" y1="50" x2="50" y2="275" stroke="#30363d" />
-              <line x1="150" y1="50" x2="150" y2="275" stroke="#1f242c" stroke-dasharray="4" />
-              <line x1="250" y1="50" x2="250" y2="275" stroke="#1f242c" stroke-dasharray="4" />
-              <line x1="350" y1="50" x2="350" y2="275" stroke="#1f242c" stroke-dasharray="4" />
-              
-              <!-- Curved Graph Line (Trend) -->
-              <path d="M 50 220 C 100 240, 120 100, 180 140 C 240 180, 280 80, 350 40" fill="none" stroke="url(#accent-gradient)" stroke-width="3" id="hero-graph-path" />
-              
-              <!-- Animated Glowing Dot -->
-              <circle cx="50" cy="220" r="6" fill="#e5c07b" class="pulse-dot" id="hero-graph-dot">
-                <animateMotion dur="6s" repeatCount="indefinite" path="M 0 0 C 50 20, 70 -120, 130 -80 C 190 -40, 230 -140, 300 -180" />
-              </circle>
-              
-              <defs>
-                <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#4c9699" />
-                  <stop offset="50%" stop-color="#e5c07b" />
-                  <stop offset="100%" stop-color="#ef596f" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <div class="metrics-overlay">
-              <div class="metric-item">
-                <span class="label">R-squared</span>
-                <span class="value">0.984</span>
-              </div>
-              <div class="metric-item">
-                <span class="label">Volatility</span>
-                <span class="value">0.024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="projects-section">
+  <!-- Blog Section -->
+  <section id="blog" class="blog-section">
     <div class="section-container">
       <div class="section-header">
         <span class="section-number">01.</span>
-        <h2 class="section-title">Selected Projects & Research</h2>
+        <h2 class="section-title">Blog</h2>
         <div class="section-divider"></div>
       </div>
       
-      <div class="projects-grid">
-        <!-- Project 1 -->
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-tag">Economic Theory</span>
-            <div class="project-links">
-              <a href="#" aria-label="Source Code" class="project-link-icon"><i class="fab fa-github"></i></a>
-              <a href="principles_of_economics.html" aria-label="Read Paper" class="project-link-icon"><i class="fas fa-external-link-alt"></i></a>
+      <div class="blog-grid">
+        <!-- Blog 1 -->
+        <article class="blog-card">
+          <div class="blog-header">
+            <span class="blog-tag">Economic Theory</span>
+            <div class="blog-links">
+              <a href="#" aria-label="Source Code" class="blog-link-icon"><i class="fab fa-github"></i></a>
+              <a href="principles_of_economics.html" aria-label="Read Paper" class="blog-link-icon"><i class="fas fa-external-link-alt"></i></a>
             </div>
           </div>
-          <h3 class="project-title">The Ten Principles of Economics</h3>
-          <p class="project-description">
+          <h3 class="blog-title">The Ten Principles of Economics</h3>
+          <p class="blog-description">
             A comprehensive, rigorous overview and analysis of N. Gregory Mankiw's foundational Ten Principles of Economics, explaining decision-making, market interaction, and macro systems with clear examples.
           </p>
           
-          <div class="project-visual">
+          <div class="blog-visual">
             <div class="mini-chart">
               <span class="bar-chart-bar" style="height: 40%"></span>
               <span class="bar-chart-bar" style="height: 60%"></span>
@@ -150,7 +101,7 @@
             </div>
           </div>
           
-          <ul class="project-tech-list">
+          <ul class="blog-tech-list">
             <li>Mankiw's Framework</li>
             <li>Microeconomics</li>
             <li>Macroeconomics</li>
@@ -158,21 +109,21 @@
           </ul>
         </article>
 
-        <!-- Project 2 -->
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-tag">Simulation</span>
-            <div class="project-links">
-              <a href="#" aria-label="Source Code" class="project-link-icon"><i class="fab fa-github"></i></a>
-              <a href="#" aria-label="External Link" class="project-link-icon"><i class="fas fa-external-link-alt"></i></a>
+        <!-- Blog 2 -->
+        <article class="blog-card">
+          <div class="blog-header">
+            <span class="blog-tag">Cognitive Science</span>
+            <div class="blog-links">
+              <a href="#" aria-label="Source Code" class="blog-link-icon"><i class="fab fa-github"></i></a>
+              <a href="mental_models.html" aria-label="Read Post" class="blog-link-icon"><i class="fas fa-external-link-alt"></i></a>
             </div>
           </div>
-          <h3 class="project-title">Algorithmic Monetary Policy Simulator</h3>
-          <p class="project-description">
-            Agent-based computational model analyzing policy transmission mechanisms and their effects on heterogeneous households. Explores capital requirements and interest rate channels.
+          <h3 class="blog-title">The Great Mental Models You Must Know</h3>
+          <p class="blog-description">
+            A comprehensive masterclass guide explaining the 10 core mental models—from First Principles to Causation vs. Correlation—that will upgrade your thinking, decision-making, and problem-solving.
           </p>
           
-          <div class="project-visual">
+          <div class="blog-visual">
             <div class="dots-grid-visual">
               <span class="dot-node pulse"></span>
               <span class="dot-node"></span>
@@ -186,51 +137,14 @@
             </div>
           </div>
           
-          <ul class="project-tech-list">
-            <li>WebAssembly</li>
-            <li>Rust</li>
-            <li>VanillaJS</li>
-            <li>CSS Canvas</li>
+          <ul class="blog-tech-list">
+            <li>Charlie Munger</li>
+            <li>Cognitive Science</li>
+            <li>Decision Theory</li>
+            <li>Strategic Systems</li>
           </ul>
         </article>
 
-        <!-- Project 3 -->
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-tag">Network Theory</span>
-            <div class="project-links">
-              <a href="#" aria-label="Source Code" class="project-link-icon"><i class="fab fa-github"></i></a>
-              <a href="#" aria-label="External Link" class="project-link-icon"><i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-          <h3 class="project-title">Global Trade Network Analysis</h3>
-          <p class="project-description">
-            Graph-based visualization mapping global trade flows, vulnerability indices, and the cascade effects of tariff shocks and supply chain disruptions across international networks.
-          </p>
-          
-          <div class="project-visual">
-            <div class="network-visual">
-              <svg viewBox="0 0 100 50" class="network-svg">
-                <line x1="20" y1="25" x2="50" y2="10" stroke="#30363d" stroke-width="1" />
-                <line x1="20" y1="25" x2="50" y2="40" stroke="#30363d" stroke-width="1" />
-                <line x1="50" y1="10" x2="80" y2="25" stroke="#30363d" stroke-width="1" />
-                <line x1="50" y1="40" x2="80" y2="25" stroke="#30363d" stroke-width="1" />
-                <line x1="50" y1="10" x2="50" y2="40" stroke="#30363d" stroke-width="1" />
-                <circle cx="20" cy="25" r="4" fill="#4c9699" />
-                <circle cx="50" cy="10" r="5" fill="#e5c07b" />
-                <circle cx="50" cy="40" r="5" fill="#e5c07b" />
-                <circle cx="80" cy="25" r="4" fill="#ef596f" />
-              </svg>
-            </div>
-          </div>
-          
-          <ul class="project-tech-list">
-            <li>NetworkX</li>
-            <li>Pandas</li>
-            <li>D3.js</li>
-            <li>SVG</li>
-          </ul>
-        </article>
       </div>
     </div>
   </section>
@@ -248,7 +162,7 @@
         <div class="contact-info">
           <h3 class="contact-info-title">// Connect Details</h3>
           <p class="contact-info-desc">
-            I am always open to discussing research collaborations, policy consulting opportunities, or data visualization projects.
+            I am always open to discussing research collaborations, policy consulting opportunities, or data visualization blog posts.
           </p>
           
           <ul class="contact-list">

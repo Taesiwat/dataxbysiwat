@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   
   // Randomize the mini chart animation for visual premium look
-  const projectCards = document.querySelectorAll('.project-card');
-  projectCards.forEach(card => {
+  const blogCards = document.querySelectorAll('.blog-card');
+  blogCards.forEach(card => {
     card.addEventListener('mouseenter', () => {
       const bars = card.querySelectorAll('.bar-chart-bar');
       bars.forEach(bar => {

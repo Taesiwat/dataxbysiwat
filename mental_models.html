@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Great Mental Models You Must Know | Siwat Teimtad</title>
+  <meta name="description" content="A concise masterclass guide explaining the 10 core mental models that will upgrade your thinking, decision-making, and problem-solving.">
+  
+  <!-- JetBrains Mono Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Article Page Specific Styling */
+    .article-section {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .article-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--color-secondary);
+      margin-bottom: 32px;
+      transition: color var(--transition-fast);
+    }
+    
+    .article-back-link:hover {
+      color: var(--color-primary);
+    }
+    
+    .article-header {
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 32px;
+    }
+    
+    .article-meta {
+      display: flex;
+      gap: 24px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    
+    .article-meta span i {
+      color: var(--color-primary);
+      margin-right: 6px;
+    }
+    
+    .article-title {
+      font-size: 2.4rem;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    
+    /* Interactive Navigation Wheel */
+    .toc-container {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 48px;
+    }
+    
+    .toc-title {
+      font-size: 0.9rem;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+    
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 8px;
+    }
+    
+    .toc-item {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 4px;
+      transition: all var(--transition-fast);
+    }
+    
+    .toc-item:hover {
+      background-color: var(--bg-elevated);
+      color: var(--color-primary);
+      transform: translateX(4px);
+    }
+    
+    .article-content {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
+    
+    .article-content p {
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+    
+    .article-content strong {
+      color: var(--text-main);
+    }
+    
+    .article-content h2 {
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      margin-top: 48px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+    
+    .article-content h3 {
+      font-size: 1.15rem;
+      color: var(--color-secondary);
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    
+    .model-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+      transition: border-color var(--transition-fast);
+    }
+    
+    .model-card:hover {
+      border-color: var(--border-focus);
+    }
+    
+    .model-num {
+      font-size: 0.75rem;
+      color: var(--color-secondary);
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .model-heading {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-main);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+    
+    .section-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background-color: var(--bg-elevated);
+      color: var(--color-primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .model-example {
+      margin-top: 16px;
+      padding: 14px 18px;
+      background-color: var(--bg-elevated);
+      border-left: 3px solid var(--color-primary);
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+    }
+    
+    .example-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+    
+    .example-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 0 !important;
+    }
+    
+    /* Interactive Simulator Elements */
+    .simulator-container {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+    
+    .simulator-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .sim-control {
+      margin-bottom: 12px;
+    }
+    
+    .sim-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+    
+    .sim-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      cursor: pointer;
+      box-shadow: var(--glow-gold);
+    }
+    
+    .sim-output {
+      font-family: var(--font-family);
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-weight: 700;
+      background: var(--bg-secondary);
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      margin-top: 12px;
+    }
+    
+    /* Compounding chart visual list */
+    .compounding-bar-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 80px;
+      margin-top: 12px;
+      background: var(--bg-secondary);
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .compounding-bar {
+      flex: 1;
+      background: var(--color-secondary);
+      height: 1%;
+      transition: height 0.3s ease;
+      border-radius: 2px 2px 0 0;
+    }
+    
+    .compounding-bar:last-child {
+      background: var(--color-primary);
+    }
+    
+    /* Inversion Toggle Style */
+    .inversion-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    
+    .inv-column {
+      background: var(--bg-secondary);
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .inv-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    
+    .inv-header.forward { color: var(--color-secondary); }
+    .inv-header.inverted { color: var(--color-danger); }
+    
+    .inv-item {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Matrix Digital Rain Background -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-container">
+        <span class="logo-text">Siwat Teimtad</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#blog" class="nav-link">Blog</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Article Section -->
+  <main class="article-section">
+    <div class="article-container">
+      <a href="index.html#blog" class="article-back-link">
+        <i class="fas fa-arrow-left"></i> back to blog
+      </a>
+      
+      <article>
+        <header class="article-header">
+          <div class="article-meta">
+            <span><i class="fas fa-user"></i> Siwat Teimtad</span>
+            <span><i class="fas fa-calendar-alt"></i> June 2026</span>
+            <span><i class="fas fa-book"></i> Cognitive Science & Philosophy</span>
+          </div>
+          <h1 class="article-title">The Great Mental Models You Must Know</h1>
+          <p class="article-subtitle">
+            A concise, practical guide to the 10 essential thinking frameworks designed to upgrade your decision-making and problem-solving.
+          </p>
+        </header>
+        
+        <!-- Table of Contents -->
+        <div class="toc-container">
+          <div class="toc-title">10 Core Mental Models</div>
+          <div class="toc-grid">
+            <a href="#first-principles" class="toc-item"><span>01.</span> First Principles</a>
+            <a href="#map-territory" class="toc-item"><span>02.</span> Map vs. Territory</a>
+            <a href="#circle-competence" class="toc-item"><span>03.</span> Circle of Competence</a>
+            <a href="#second-order" class="toc-item"><span>04.</span> Second-Order Thinking</a>
+            <a href="#inversion" class="toc-item"><span>05.</span> Inversion</a>
+            <a href="#black-swan" class="toc-item"><span>06.</span> Black Swan Theory</a>
+            <a href="#compounding" class="toc-item"><span>07.</span> Compounding Effect</a>
+            <a href="#pareto" class="toc-item"><span>08.</span> Pareto (80/20) Rule</a>
+            <a href="#parkinsons-law" class="toc-item"><span>09.</span> Parkinson's Law</a>
+            <a href="#causation-correlation" class="toc-item"><span>10.</span> Causation vs. Correlation</a>
+          </div>
+        </div>
+        
+        <div class="article-content">
+          <!-- Introduction -->
+          <section class="intro-section">
+            <p>
+              We navigate a complex world daily, making critical decisions about our careers, finances, and relationships. Often, we rely on gut feelings or mimic others—a process equivalent to stumbling around in a dark room. 
+            </p>
+            <p>
+              <strong>Mental models are our flashlights.</strong> A mental model is a simplified conceptual framework that explains how something works. As legendary investor Charlie Munger famously noted, you cannot rely on isolated facts; you must build a "latticework" of mental models to truly understand situations and make smart, objective decisions.
+            </p>
+            <p>
+              Below are the 10 most powerful, versatile mental models to add to your intellectual toolkit.
+            </p>
+          </section>
+
+          <!-- 01. First Principles Thinking -->
+          <section id="first-principles" class="model-card">
+            <span class="model-num">01. First Principles Thinking</span>
+            <h2 class="model-heading">First Principles Thinking</h2>
+            <span class="section-tag">Reasoning & Philosophy</span>
+            <p>
+              First Principles Thinking is the act of deconstructing a problem down to its most basic, undeniable truths and building a novel solution from scratch, rather than reasoning by analogy (simply copying what has been done before).
+            </p>
+            <div class="model-example">
+              <div class="example-title">Example: SpaceX & Rockets</div>
+              <p class="example-body">
+                Instead of buying a finished rocket for $65M, Elon Musk deconstructed a rocket into its raw materials (aluminum, titanium, fuel) and realized the material cost was only 2% of the sales price. By buying materials and manufacturing vertically, SpaceX cut launch costs by 90%.
+              </p>
+            </div>
+          </section>
+
+          <!-- 02. The Map is Not the Territory -->
+          <section id="map-territory" class="model-card">
+            <span class="model-num">02. The Map is Not the Territory</span>
+            <h2 class="model-heading">The Map is Not the Territory</h2>
+            <span class="section-tag">Perception & Reality</span>
+            <p>
+              Coined by Alfred Korzybski, this model states that any representation of reality (a map, a business plan, a spreadsheet, a belief system) is only a simplification. We must remain flexible and observe the actual "territory" (reality) directly, adjusting our plans when they clash with facts.
+            </p>
+            <div class="model-example">
+              <div class="example-title">Example: Business Plans vs. Customers</div>
+              <p class="example-body">
+                An entrepreneur writes a beautiful 50-page business plan. When they launch, real customers use the product in unexpected ways. The successful founder discards the plan (the map) and pivots to match customer behavior (the territory).
+              </p>
+            </div>
+          </section>
+
+          <!-- 03. Circle of Competence -->
+          <section id="circle-competence" class="model-card">
+            <span class="model-num">03. Circle of Competence</span>
+            <h2 class="model-heading">Circle of Competence</h2>
+            <span class="section-tag">Self-Awareness & Strategy</span>
+            <p>
+              Developed by Warren Buffett and Charlie Munger, this model advises identifying the boundaries of your true knowledge and experience. Success comes from operating inside your circle to leverage your edge, and exercising extreme caution when stepping outside it.
+            </p>
+            <div class="model-example">
+              <div class="example-title">Example: Warren Buffett & Tech Stocks</div>
+              <p class="example-body">
+                During the 1990s tech bubble, Buffett refused to invest in internet stocks because he did not understand how they would protect profits long-term. While others laughed, he stuck to consumer goods. When the bubble burst, Buffett’s portfolio remained secure.
+              </p>
+            </div>
+          </section>
+
+          <!-- 04. Second-Order Thinking -->
+          <section id="second-order" class="model-card">
+            <span class="model-num">04. Second-Order Thinking</span>
+            <h2 class="model-heading">Second-Order Thinking</h2>
+            <span class="section-tag">Systems & Long-Term Planning</span>
+            <p>
+              First-order thinking looks only at the immediate, obvious consequence of an action. Second-order thinking looks past the immediate results and asks, <strong>"And then what?"</strong>, tracing reactions, loops, and long-term consequences over time.
+            </p>
+            <div class="model-example">
+              <div class="example-title">Example: The Cobra Effect</div>
+              <p class="example-body">
+                To reduce Delhi's cobra population, the British government offered a cash bounty for dead snakes. First-order: people killed snakes. Second-order: citizens started breeding cobras to collect bounties. When the bounty was cancelled, breeders released their snakes, resulting in more cobras than before.
+              </p>
+            </div>
+          </section>
+
+          <!-- 05. Inversion -->
+          <section id="inversion" class="model-card">
+            <span class="model-num">05. Inversion</span>
+            <h2 class="model-heading">Inversion</h2>
+            <span class="section-tag">Problem Solving & Risk Mitigation</span>
+            <p>
+              Derived from mathematician Carl Jacobi's maxim "Invert, always invert," this model solves problems backward. Instead of asking how to achieve success, ask: "How could I guarantee absolute failure?" and then focus entirely on avoiding those actions.
+            </p>
+            <div class="inversion-box" style="margin-bottom: 16px;">
+              <div class="inv-column">
+                <div class="inv-header forward">Forward: Success</div>
+                <div class="inv-item"><i class="fas fa-check" style="color: var(--color-success)"></i> Exercise & sleep well</div>
+                <div class="inv-item"><i class="fas fa-check" style="color: var(--color-success)"></i> Save & invest money</div>
+              </div>
+              <div class="inv-column">
+                <div class="inv-header inverted">Inverted: Failure (Avoid!)</div>
+                <div class="inv-item"><i class="fas fa-times" style="color: var(--color-danger)"></i> Stay sedentary & sleep late</div>
+                <div class="inv-item"><i class="fas fa-times" style="color: var(--color-danger)"></i> Carry high-interest debt</div>
+              </div>
+            </div>
+            <div class="model-example">
+              <div class="example-title">Example: The Project Premortem</div>
+              <p class="example-body">
+                Before launching a project, a manager asks the team: "Imagine it is six months from now and we failed catastrophically. Why did we fail?" This uncovers hidden risks that can be mitigated immediately.
+              </p>
+            </div>
+          </section>
+
+          <!-- 06. Black Swan -->
+          <section id="black-swan" class="model-card">
+            <span class="model-num">06. Black Swan Theory</span>
+            <h2 class="model-heading">Black Swan Theory</h2>
+            <span class="section-tag">Risk & Probability</span>
+            <p>
+              Developed by Nassim Nicholas Taleb, a Black Swan is an outlier event that is highly improbable, carries an extreme impact, and is rationalized in hindsight as predictable. Since they cannot be predicted, the goal is to build redundancy and robust systems to survive them.
+            </p>
+            <div class="model-example">
+              <div class="example-title">Example: The Sinking of the Titanic</div>
+              <p class="example-body">
+                The Titanic's builders assumed the ship was unsinkable based on known risks and carried only 20 lifeboats. When an iceberg struck in an unprecedented manner, the lack of redundancy cost over 1,500 lives.
+              </p>
+            </div>
+          </section>
+
+          <!-- 07. Compounding Effect -->
+          <section id="compounding" class="model-card">
+            <span class="model-num">07. The Compounding Effect</span>
+            <h2 class="model-heading">The Compounding Effect</h2>
+            <span class="section-tag">Mathematics & Habits</span>
+            <p>
+              Compounding is the process where the outputs of a system are reinvested to produce even larger outputs. In life, small, daily, 1% improvements or declines yield massive, non-linear changes over long horizons.
+            </p>
+            
+            <!-- Interactive Compounding Simulator -->
+            <div class="simulator-container">
+              <div class="simulator-title"><i class="fas fa-chart-line"></i> Interactive Compounding Simulator</div>
+              <div class="sim-control">
+                <span class="sim-label">Daily Growth Rate: <strong id="compound-val">+1.0%</strong></span>
+                <input type="range" id="compound-rate" class="sim-slider" min="-2.0" max="2.0" step="0.1" value="1.0">
+              </div>
+              <div class="sim-output" id="compound-result">
+                37.78x (Your growth over 365 days)
+              </div>
+              <div class="compounding-bar-container" id="chart-bars">
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+                <span class="compounding-bar"></span>
+              </div>
+            </div>
+
+            <div class="model-example">
+              <div class="example-title">Example: Atomic Habits Math</div>
+              <p class="example-body">
+                Improving by 1% daily for a year makes you $1.01^{365} = 37.78$ times better. Declining by 1% daily ($0.99^{365} = 0.03$) reduces your skill levels almost to absolute zero.
+              </p>
+            </div>
+          </section>
+
+          <!-- 08. Pareto Principle -->
+          <section id="pareto" class="model-card">
+            <span class="model-num">08. Pareto Principle (80/20 Rule)</span>
+            <h2 class="model-heading">Pareto Principle / 80-20 Rule</h2>
+            <span class="section-tag">Efficiency & Resource Allocation</span>
+            <p>
+              The Pareto Principle states that in most systems, roughly 80% of the consequences come from 20% of the causes. To maximize productivity, we must identify the few high-leverage inputs and double down on them.
+            </p>
+
+            <!-- Interactive Pareto Simulator -->
+            <div class="simulator-container">
+              <div class="simulator-title"><i class="fas fa-balance-scale"></i> Pareto Principle Simulator</div>
+              <div class="sim-control">
+                <span class="sim-label">Effort Invested: <strong id="effort-val">20%</strong></span>
+                <input type="range" id="pareto-slider" class="sim-slider" min="0" max="100" step="5" value="20">
+              </div>
+              <div class="sim-output">
+                Results Produced: <strong id="result-val" style="color: var(--color-primary);">80%</strong>
+              </div>
+            </div>
+
+            <div class="model-example">
+              <div class="example-title">Example: Software Crashes</div>
+              <p class="example-body">
+                Microsoft found that by identifying and fixing the top 20% of most commonly reported bugs, they eliminated 80% of system crashes in Windows.
+              </p>
+            </div>
+          </section>
+
+          <!-- 09. Parkinson's Law -->
+          <section id="parkinsons-law" class="model-card">
+            <span class="model-num">09. Parkinson's Law</span>
+            <h2 class="model-heading">Parkinson's Law</h2>
+            <span class="section-tag">Time Management & Productivity</span>
+            <p>
+              Work expands to fill the time allocated for its completion. If you give yourself a loose deadline, a task will grow in complexity and cause unnecessary stress. Restricting timeboxes forces focus on essential elements.
+            </p>
+
+            <!-- Interactive Task Simulator -->
+            <div class="simulator-container">
+              <div class="simulator-title"><i class="fas fa-hourglass-start"></i> Parkinson's Law Task Simulator</div>
+              <div class="sim-control">
+                <span class="sim-label">Time Allowed: <strong id="time-val">5 days</strong></span>
+                <input type="range" id="parkinson-time" class="sim-slider" min="1" max="10" step="1" value="5">
+              </div>
+              <div class="sim-output">
+                <div style="display: flex; justify-content: space-around; gap: 8px;">
+                  <div>Focus: <strong id="focus-val" style="color: var(--color-success);">50%</strong></div>
+                  <div>Stress: <strong id="stress-val" style="color: var(--color-danger);">30%</strong></div>
+                  <div>Quality: <strong id="quality-val" style="color: var(--color-secondary);">80%</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="model-example">
+              <div class="example-title">Example: The 60-Minute Meeting</div>
+              <p class="example-body">
+                Because calendars default to one-hour increments, simple meetings expand to take 60 minutes as participants chat and make small talk, even if the decision could be made in 15 minutes.
+              </p>
+            </div>
+          </section>
+
+          <!-- 10. Causation vs. Correlation -->
+          <section id="causation-correlation" class="model-card">
+            <span class="model-num">10. Causation vs. Correlation</span>
+            <h2 class="model-heading">Causation vs. Correlation</h2>
+            <span class="section-tag">Logic & Scientific Thinking</span>
+            <p>
+              Correlation means two variables change together. Causation means one variable directly triggers the other. Confusing them leads to superstitious behaviors, bad policy choices, and flawed business models.
+            </p>
+            <div class="model-example">
+              <div class="example-title">Example: Ice Cream & Shark Attacks</div>
+              <p class="example-body">
+                Ice cream sales and shark attacks are highly correlated. However, ice cream does not attract sharks. Warm summer temperatures (a confounding variable) cause both sales and swimming frequency to rise.
+              </p>
+            </div>
+          </section>
+
+          <!-- Conclusion -->
+          <section class="conclusion-section" style="margin-top: 48px;">
+            <h2>Conclusion: Integrate the Latticework</h2>
+            <p>
+              Wisdom is not about memorizing isolated concepts; it is about connecting them into a functional system. In practice:
+            </p>
+            <ul>
+              <li>Use <strong>First Principles</strong> to construct a business idea.</li>
+              <li>Check your <strong>Circle of Competence</strong> before committing.</li>
+              <li>Invert the goal to protect your downside against <strong>Black Swans</strong>.</li>
+              <li>Focus on the top <strong>20% of efforts</strong> under tight <strong>Parkinson's Law</strong> deadlines.</li>
+            </ul>
+            <p>
+              Stop passive thinking and start taking deliberate control of your mind. Install these models today, apply them tomorrow, and light up the complex decisions of your future.
+            </p>
+          </section>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 Siwat Teimtad. All rights reserved.</p>
+      <p class="footer-credit">Built with JetBrains Mono, Vanilla CSS & JS</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Interactive components functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      // Compounding Calculator
+      const compoundSlider = document.getElementById('compound-rate');
+      const compoundVal = document.getElementById('compound-val');
+      const compoundOutput = document.getElementById('compound-result');
+      const chartBars = document.getElementById('chart-bars');
+      
+      if (compoundSlider && compoundOutput && chartBars) {
+        const updateCompounding = () => {
+          const rate = parseFloat(compoundSlider.value);
+          compoundVal.textContent = (rate >= 0 ? '+' : '') + rate.toFixed(1) + '%';
+          
+          const factor = 1 + (rate / 100);
+          const result = Math.pow(factor, 365);
+          
+          if (rate === 0) {
+            compoundOutput.textContent = '1.00x (No change)';
+          } else if (rate > 0) {
+            compoundOutput.textContent = result.toFixed(2) + 'x (You improve by ' + ((result - 1) * 100).toFixed(0) + '%)';
+          } else {
+            compoundOutput.textContent = result.toFixed(5) + 'x (You decline to almost 0)';
+          }
+          
+          const bars = chartBars.querySelectorAll('.compounding-bar');
+          bars.forEach((bar, index) => {
+            const step = index / (bars.length - 1);
+            const intermediateResult = Math.pow(factor, step * 365);
+            let heightPercent = 0;
+            if (rate >= 0) {
+              const maxResult = Math.pow(1 + (2.0 / 100), 365);
+              heightPercent = (intermediateResult / maxResult) * 100;
+            } else {
+              heightPercent = intermediateResult * 100;
+            }
+            bar.style.height = Math.max(2, Math.min(100, heightPercent)) + '%';
+          });
+        };
+        
+        compoundSlider.addEventListener('input', updateCompounding);
+        updateCompounding();
+      }
+      
+      // Parkinson's Law Task Simulator
+      const timeSlider = document.getElementById('parkinson-time');
+      const timeVal = document.getElementById('time-val');
+      const focusVal = document.getElementById('focus-val');
+      const stressVal = document.getElementById('stress-val');
+      const qualityVal = document.getElementById('quality-val');
+      
+      if (timeSlider) {
+        const updateParkinson = () => {
+          const days = parseInt(timeSlider.value);
+          timeVal.textContent = days + (days === 1 ? ' day' : ' days');
+          
+          let focus = 100 - (days - 1) * 9.5;
+          let stress = 100 - (days - 1) * 9.8;
+          let quality = 0;
+          
+          if (days === 1) {
+            focus = 98; stress = 95; quality = 70;
+          } else if (days >= 2 && days <= 4) {
+            focus = 85; stress = 60; quality = 95;
+          } else if (days >= 5 && days <= 7) {
+            focus = 50; stress = 30; quality = 80;
+          } else {
+            focus = 20; stress = 10; quality = 50;
+          }
+          
+          focusVal.textContent = Math.max(10, Math.min(100, focus)).toFixed(0) + '%';
+          stressVal.textContent = Math.max(5, Math.min(100, stress)).toFixed(0) + '%';
+          qualityVal.textContent = Math.max(20, Math.min(100, quality)).toFixed(0) + '%';
+        };
+        
+        timeSlider.addEventListener('input', updateParkinson);
+        updateParkinson();
+      }
+      
+      // Pareto Slider Simulator
+      const paretoSlider = document.getElementById('pareto-slider');
+      const effortVal = document.getElementById('effort-val');
+      const resultVal = document.getElementById('result-val');
+      
+      if (paretoSlider) {
+        const updatePareto = () => {
+          const effort = parseInt(paretoSlider.value);
+          effortVal.textContent = effort + '%';
+          
+          let result = 0;
+          if (effort <= 20) {
+            result = 4 * effort;
+          } else {
+            result = 80 + 0.25 * (effort - 20);
+          }
+          resultVal.textContent = result.toFixed(0) + '%';
+        };
+        
+        paretoSlider.addEventListener('input', updatePareto);
+        updatePareto();
+      }
+    });
+  </script>
+</body>
+</html>
