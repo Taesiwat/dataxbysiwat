@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Art of Strategy: Game Theory in Daily Life | Siwat Teimtad</title>
+  <meta name="description" content="An exhaustive, beginner-friendly guide exploring the applications of game theory, Nash Equilibrium, the Prisoner's Dilemma, and signaling in our everyday interactions.">
+  
+  <!-- JetBrains Mono Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Article Page Specific Styling */
+    .article-section {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .article-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--color-secondary);
+      margin-bottom: 32px;
+      transition: color var(--transition-fast);
+    }
+    
+    .article-back-link:hover {
+      color: var(--color-primary);
+    }
+    
+    .article-header {
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 32px;
+    }
+    
+    .article-meta {
+      display: flex;
+      gap: 24px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    
+    .article-meta span i {
+      color: var(--color-primary);
+      margin-right: 6px;
+    }
+    
+    .article-title {
+      font-size: 2.4rem;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    
+    .toc-container {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 48px;
+    }
+    
+    .toc-title {
+      font-size: 0.9rem;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+    
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 8px;
+    }
+    
+    .toc-item {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 4px;
+      transition: all var(--transition-fast);
+    }
+    
+    .toc-item:hover {
+      background-color: var(--bg-elevated);
+      color: var(--color-primary);
+      transform: translateX(4px);
+    }
+    
+    .article-content {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
+    
+    .article-content p {
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+    
+    .article-content strong {
+      color: var(--text-main);
+    }
+    
+    .article-content h2 {
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      margin-top: 48px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+    
+    .article-content h3 {
+      font-size: 1.15rem;
+      color: var(--text-main);
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    
+    /* Payoff Matrix Table CSS */
+    .payoff-table-container {
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+    
+    .payoff-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    
+    .payoff-table th, .payoff-table td {
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      background-color: var(--bg-secondary);
+    }
+    
+    .payoff-table th {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+    
+    .payoff-cell {
+      display: flex;
+      justify-content: space-around;
+      font-weight: bold;
+    }
+    
+    .p1-payoff {
+      color: #00ff41;
+    }
+    
+    .p2-payoff {
+      color: #00bcd4;
+    }
+    
+    /* Callout Card styling */
+    .callout-box {
+      background-color: var(--bg-elevated);
+      border-left: 4px solid var(--color-primary);
+      padding: 20px;
+      border-radius: 4px;
+      margin: 32px 0;
+    }
+    
+    .callout-box p {
+      margin: 0;
+      color: var(--text-main);
+      font-style: italic;
+    }
+    
+    /* Interactive Simulator Elements */
+    .simulator-container {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 36px 0;
+    }
+    
+    .simulator-title {
+      font-size: 1.1rem;
+      color: var(--color-primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    
+    .sim-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .sim-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .sim-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .sim-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-elevated);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--color-primary);
+    }
+    
+    .sim-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    
+    .btn-action {
+      flex: 1;
+      padding: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    
+    .btn-cooperate {
+      background-color: rgba(0, 255, 65, 0.1);
+      border: 1px solid #00ff41;
+      color: #00ff41;
+    }
+    
+    .btn-cooperate:hover {
+      background-color: #00ff41;
+      color: #0a0c10;
+    }
+    
+    .btn-defect {
+      background-color: rgba(255, 51, 102, 0.1);
+      border: 1px solid #ff3366;
+      color: #ff3366;
+    }
+    
+    .btn-defect:hover {
+      background-color: #ff3366;
+      color: #0a0c10;
+    }
+    
+    .btn-reset {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+    
+    .btn-reset:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+    }
+    
+    .sim-results {
+      padding: 16px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    
+    .pd-scoreboard {
+      display: flex;
+      justify-content: space-around;
+      background-color: var(--bg-elevated);
+      padding: 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .pd-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .pd-score-num {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--color-primary);
+    }
+    
+    .pd-score-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    
+    .pd-log-container {
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-primary);
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .pd-log-entry {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 4px;
+    }
+    
+    /* Lemon Market styling */
+    .market-status-box {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .market-status-header {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .market-status-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    
+    .status-healthy {
+      color: #00ff41;
+    }
+    
+    .status-struggling {
+      color: #ff9800;
+    }
+    
+    .status-collapsed {
+      color: #ff3366;
+    }
+    
+    .car-display-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .car-node {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      aspect-ratio: 1;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .car-lemon {
+      color: #ffd600;
+      border-color: #ffd600;
+      background-color: rgba(255, 214, 0, 0.05);
+    }
+    
+    .car-peach {
+      color: #00bcd4;
+      border-color: #00bcd4;
+      background-color: rgba(0, 188, 212, 0.05);
+    }
+    
+    .car-empty {
+      opacity: 0.2;
+      border-style: dashed;
+    }
+    
+    .car-icon {
+      font-size: 1.2rem;
+    }
+    
+    .car-label {
+      font-size: 0.55rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Matrix Canvas Rain Background -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-container" id="logo-link">
+        <span class="logo-text">Siwat Teimtad</span>
+      </a>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#blog" class="nav-link">Blog</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Article Section -->
+  <main class="article-section">
+    <div class="article-container">
+      <a href="index.html#blog" class="article-back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+      
+      <header class="article-header">
+        <div class="article-meta">
+          <span><i class="far fa-calendar-alt"></i> June 7, 2026</span>
+          <span><i class="far fa-clock"></i> 30 Min Read</span>
+          <span><i class="fas fa-tag"></i> Decision Science</span>
+        </div>
+        <h1 class="article-title">The Art of Strategy: Game Theory in Daily Life</h1>
+        <p class="article-subtitle">A beginner-friendly guide to understanding the hidden rules of cooperation, conflict, trust, and negotiation in your everyday interactions.</p>
+      </header>
+
+      <!-- Table of Contents -->
+      <div class="toc-container">
+        <div class="toc-title">Table of Contents</div>
+        <div class="toc-grid">
+          <a href="#introduction" class="toc-item"><i class="fas fa-play"></i> 1. The Matrix of Life</a>
+          <a href="#building-blocks" class="toc-item"><i class="fas fa-cubes"></i> 2. What Is a "Game"?</a>
+          <a href="#prisoners-dilemma" class="toc-item"><i class="fas fa-balance-scale"></i> 3. The Prisoner's Dilemma</a>
+          <a href="#nash-equilibrium" class="toc-item"><i class="fas fa-compress-arrows-alt"></i> 4. The Nash Equilibrium</a>
+          <a href="#stag-hunt" class="toc-item"><i class="fas fa-crosshairs"></i> 5. The Stag Hunt</a>
+          <a href="#chicken" class="toc-item"><i class="fas fa-car-crash"></i> 6. The Game of Chicken</a>
+          <a href="#signaling" class="toc-item"><i class="fas fa-broadcast-tower"></i> 7. Asymmetric Info & Signaling</a>
+          <a href="#conclusion" class="toc-item"><i class="fas fa-flag-checkered"></i> 8. Playing the Game Wisely</a>
+        </div>
+      </div>
+
+      <!-- Article Content -->
+      <article class="article-content">
+        
+        <h2 id="introduction">// 1. The Matrix of Life</h2>
+        <p>
+          Imagine waking up on a Monday morning. You and your roommate have a clean sink. You both cook breakfast. Who washes the dishes? If you wash them, you spend time and effort while your roommate gets a free ride. If neither of you washes them, the sink piles up, creating a smelly kitchen that ruins both of your evenings. You are in a strategic interaction: your best decision depends on what your roommate decides to do, and their best decision depends on you.
+        </p>
+        <p>
+          Leaving for work, you approach a highway merge point. Two lanes must compress into one. If you rush forward aggressively, you might save five seconds—or get into a collision. If you merge politely but the other driver pushes aggressively, you get stuck. Your commute is not just a drive; it is a game of chicken where your health and time are the stakes.
+        </p>
+        <p>
+          At the office, your manager asks for volunteers for a new project. If everyone keeps their heads down, the team looks lazy, and future budgets might get cut. If you step up alone, you carry a massive workload while others benefit from the team's survival. 
+        </p>
+        <p>
+          Welcome to the world of <strong>Game Theory</strong>. Far from being restricted to mathematical modeling or military war rooms, game theory is the study of how people, companies, and countries interact strategically. Whenever the outcome of your action depends on the choices of someone else, you are playing a game. 
+        </p>
+        <p>
+          This guide will break down the essential concepts of game theory—from the famous Prisoner's Dilemma to the subtle art of signaling—and explain how you can apply these models to make better decisions in your work, relationships, and daily life.
+        </p>
+
+        <h2 id="building-blocks">// 2. What Is a "Game"?</h2>
+        <p>
+          To mathematicians and economists, a "game" is any situation involving two or more decision-makers where outcomes are determined by their joint choices. A game consists of four basic building blocks:
+        </p>
+        <ol>
+          <li><strong>Players:</strong> The decision-makers (e.g., you and your roommate, competing companies, or negotiating nations).</li>
+          <li><strong>Strategies:</strong> The complete plan of action a player can choose (e.g., "wash the dishes," "wait for the other person to wash them," or "defect").</li>
+          <li><strong>Payoffs:</strong> The value or utility a player receives from a specific outcome (measured in time, money, happiness, or safety).</li>
+          <li><strong>Information:</strong> What players know about the game, the rules, and each other's past moves.</li>
+        </ol>
+        <p>
+          One common myth is that game theory assumes everyone is a selfish, cold-hearted robot who only cares about money. In reality, game theory only assumes that players are <strong>rational</strong>—meaning they have consistent preferences and choose actions that maximize their expected payoffs. If you value friendship, fairness, or a clean conscience, those values simply become part of your payoffs.
+        </p>
+        <p>
+          In game theory, we divide games into different types. **Simultaneous games** are when players choose their actions at the same time without knowing what the other is doing (like Rock-Paper-Scissors or buying products from competing brands). **Sequential games** are when players take turns (like Chess, salary negotiations, or parenting). Knowing what type of game you are playing changes how you should plan your strategy.
+        </p>
+
+        <h2 id="prisoners-dilemma">// 3. The Prisoner's Dilemma</h2>
+        <p>
+          The most famous scenario in all of game theory is the <strong>Prisoner's Dilemma</strong>. It illustrates a tragic truth: when individuals act in their own rational self-interest, they can produce an outcome that makes everyone worse off.
+        </p>
+        <p>
+          The classic setup is as follows: Two suspects are arrested by the police. The police do not have enough evidence to convict them of the primary crime, but they can convict them on a minor charge. The suspects are placed in separate interrogation rooms and offered a deal:
+        </p>
+        <ul>
+          <li>If you **betray** (defect) your partner and they stay silent (cooperate), you go free and your partner gets 10 years in prison.</li>
+          <li>If you both **stay silent** (cooperate with each other), you both get a light sentence of 1 year.</li>
+          <li>If you both **betray** each other, you both get a moderate sentence of 5 years.</li>
+        </ul>
+
+        <div class="payoff-table-container">
+          <table class="payoff-table">
+            <thead>
+              <tr>
+                <th>Suspect 1 \ Suspect 2</th>
+                <th>Cooperate (Silent)</th>
+                <th>Defect (Betray)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Cooperate (Silent)</th>
+                <td><div class="payoff-cell"><span class="p1-payoff">-1 yr</span>, <span class="p2-payoff">-1 yr</span></div></td>
+                <td><div class="payoff-cell"><span class="p1-payoff">-10 yrs</span>, <span class="p2-payoff">0 yrs</span></div></td>
+              </tr>
+              <tr>
+                <th>Defect (Betray)</th>
+                <td><div class="payoff-cell"><span class="p1-payoff">0 yrs</span>, <span class="p2-payoff">-10 yrs</span></div></td>
+                <td><div class="payoff-cell"><span class="p1-payoff">-5 yrs</span>, <span class="p2-payoff">-5 yrs</span></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Let's look at this from Suspect 1's perspective:
+          If Suspect 2 stays silent, Suspect 1's best move is to betray them (0 years instead of 1 year).
+          If Suspect 2 betrays them, Suspect 1's best move is *still* to betray them (5 years instead of 10 years).
+          Because betraying is the best choice regardless of what the other person does, it is called a <strong>dominant strategy</strong>. 
+        </p>
+        <p>
+          Since both players are rational, they both betray each other, receiving 5 years each. Yet, if they had both stayed silent, they would have only received 1 year each! Their individual search for self-preservation trapped them in a suboptimal outcome.
+        </p>
+
+        <div class="callout-box">
+          <p>
+            "The Prisoner's Dilemma explains why we have traffic congestion, pollution, and messy office kitchens. When everyone does what is best for themselves, the group ends up in a place nobody wants."
+          </p>
+        </div>
+
+        <h3>The Prisoner's Dilemma in Daily Life</h3>
+        <ul>
+          <li><strong>Cleaning Shared Spaces:</strong> If your roommate cleans and you don't, you get a clean house for free (Best payoff for you). If you both clean, it takes moderate work (Good payoff). If neither cleans, the house becomes a mess (Bad payoff). Rational self-interest drives both to slack off, leading to a dirty apartment.</li>
+          <li><strong>Price Wars:</strong> If Coke and Pepsi both keep advertising costs low, they save money and share the market. If one spends heavily on ads while the other doesn't, the advertiser gains market share. As a result, both spend billions on ads simply to keep their market share stable, draining their profits.</li>
+        </ul>
+
+        <!-- Interactive Prisoner's Dilemma Game -->
+        <div class="simulator-container">
+          <div class="simulator-title">
+            <i class="fas fa-gamepad"></i> Interactive Prisoner's Dilemma Lab
+          </div>
+          <p class="sim-label" style="margin-bottom: 12px;">
+            Play against a computer opponent. Choose your strategy and see if cooperation can survive.
+          </p>
+          
+          <div class="sim-controls">
+            <div class="sim-control-group">
+              <label for="opponent-strategy" class="sim-label">
+                <span>Opponent AI Strategy:</span>
+              </label>
+              <select id="opponent-strategy" class="sim-slider" style="background-color: var(--bg-elevated); color: var(--text-main); height: auto; padding: 6px; border: 1px solid var(--border-color);">
+                <option value="tit-for-tat">Tit-for-Tat (Starts cooperating, then copies your last move)</option>
+                <option value="always-defect">Evil Bot (Always defects)</option>
+                <option value="always-cooperate">Angel Bot (Always cooperates)</option>
+                <option value="random">Random Bot (50/50 chance)</option>
+                <option value="grim-trigger">Grim Trigger (Cooperates until you defect once, then defects forever)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pd-scoreboard">
+            <div class="pd-score">
+              <span class="pd-score-num" id="player-score">0</span>
+              <span class="pd-score-label">Your Score</span>
+            </div>
+            <div class="pd-score">
+              <span class="pd-score-num" id="opponent-score">0</span>
+              <span class="pd-score-label">Opponent Score</span>
+            </div>
+            <div class="pd-score">
+              <span class="pd-score-num" id="round-count">0</span>
+              <span class="pd-score-label">Rounds</span>
+            </div>
+          </div>
+
+          <div class="sim-buttons">
+            <button class="btn-action btn-cooperate" id="btn-cooperate">Cooperate (Silent)</button>
+            <button class="btn-action btn-defect" id="btn-defect">Defect (Betray)</button>
+            <button class="btn-action btn-reset" id="btn-reset-pd">Reset Game</button>
+          </div>
+
+          <div class="market-status-header" style="margin-top: 20px; margin-bottom: 8px;">History Log:</div>
+          <div class="pd-log-container" id="pd-log">
+            <div class="pd-log-entry" style="color: var(--text-muted);">Click Cooperate or Defect to start playing!</div>
+          </div>
+        </div>
+
+        <h3>How to Escape the Dilemma: Axelrod's Tournament</h3>
+        <p>
+          If you play the Prisoner's Dilemma only once, defection is the rational choice. But in real life, we interact with the same people repeatedly. This is called the <strong>Iterated Prisoner's Dilemma</strong>.
+        </p>
+        <p>
+          In the 1980s, political scientist Robert Axelrod held a tournament where computer programs played the iterated game against each other. The winning strategy was a simple program called **Tit-for-Tat**, which followed three rules:
+        </p>
+        <ol>
+          <li>Be **nice**: Start by cooperating.</li>
+          <li>Be **provocable**: If the opponent defects, immediately punish them by deflecting in the next round.</li>
+          <li>Be **forgiving**: As soon as the opponent starts cooperating again, resume cooperation.</li>
+        </ol>
+        <p>
+          In life, being a pushover (always cooperating) invites exploitation. Being a cynic (always defecting) guarantees mutual destruction. The winning life strategy is to trust others, but set clear boundaries and forgive when they make amends.
+        </p>
+
+        <h2 id="nash-equilibrium">// 4. The Nash Equilibrium</h2>
+        <p>
+          Named after Nobel laureate John Nash, the <strong>Nash Equilibrium</strong> is perhaps the most critical concept in game theory. 
+        </p>
+        <p>
+          A Nash Equilibrium is a state where <strong>no player has any incentive to unilaterally change their strategy</strong>. In other words, if you know what everyone else is doing, your current strategy is the best possible choice you can make. It is a point of strategic stability.
+        </p>
+        <p>
+          Consider two people walking toward each other on a narrow sidewalk. Each must choose whether to walk on the left or the right. 
+          If Player A walks on the right and Player B walks on the right, they pass each other smoothly. If Player A changes their mind and moves to the left, they will crash. Therefore, (Right, Right) is a Nash Equilibrium. By the same logic, (Left, Left) is also a Nash Equilibrium. 
+        </p>
+        <p>
+          This example reveals two important things about Nash Equilibria:
+        </p>
+        <ul>
+          <li>A game can have **multiple** Nash Equilibria.</li>
+          <li>A Nash Equilibrium is not necessarily the "fairist" or "best" outcome; it is simply stable. Once a society settles on one equilibrium, it becomes incredibly difficult to change.</li>
+        </ul>
+
+        <div class="callout-box">
+          <p>
+            "A Nash Equilibrium is a situation where, if you were told what the other players had chosen, you would say: 'Given their choices, I made the right decision.'"
+          </p>
+        </div>
+
+        <h2 id="stag-hunt">// 5. The Stag Hunt</h2>
+        <p>
+          Not all games are conflict-based. The <strong>Stag Hunt</strong>, first described by philosopher Jean-Jacques Rousseau, is a game about the challenges of cooperation and trust.
+        </p>
+        <p>
+          Imagine two hunters. They can cooperate to hunt a large **Stag** (deer), which requires both of their efforts. Alternatively, they can independently hunt a **Hare** (rabbit). 
+          * If they both hunt the Stag, they succeed and get a massive meal (High payoff).
+          * If one hunts the Stag while the other chases a Hare, the Stag hunter gets nothing (0 payoff) and the Hare hunter gets a small rabbit.
+          * If they both hunt Hares, they each get a small rabbit (Low but safe payoff).
+        </p>
+        <p>
+          This game has two Nash Equilibria: (Stag, Stag) and (Hare, Hare). 
+          * **(Stag, Stag)** is the **payoff-dominant** equilibrium: it yields the best outcome for everyone.
+          * **(Hare, Hare)** is the **risk-dominant** equilibrium: it is the safest choice because you don't have to trust the other person.
+        </p>
+        <p>
+          The Stag Hunt represents a coordination dilemma. If you believe the other person will cooperate, it is rational to cooperate. But if you suspect the other person will fail you, it becomes rational to defect and hunt the rabbit. In relationships and projects, building trust is key to shifting a group from a low-performing safe zone to a high-performing partnership.
+        </p>
+
+        <h2 id="chicken">// 6. The Game of Chicken</h2>
+        <p>
+          The <strong>Game of Chicken</strong> models situations where two players compete for dominance, but mutual escalation leads to catastrophe.
+        </p>
+        <p>
+          In the classic version, two teenagers drive cars toward each other at high speed. The first to swerve out of the way is labeled a "chicken" (loses face), while the driver who stays straight wins. If both stay straight, they crash and die.
+        </p>
+        <p>
+          This game has two pure Nash Equilibria: (Straight, Swerve) and (Swerve, Straight). One person wins, and the other loses.
+        </p>
+        <p>
+          How do you win a game of Chicken? By **destroying your own options**.
+        </p>
+        <p>
+          If you visibly throw your steering wheel out the window, the other driver realizes you *cannot* swerve. Since they want to avoid death, they are forced to swerve. In negotiations, this is known as **brinkmanship**. By making a binding, irreversible commitment, you force the other player to back down. However, if both sides make binding commitments, they lock themselves into a collision.
+        </p>
+
+        <h2 id="signaling">// 7. Asymmetric Info & Signaling</h2>
+        <p>
+          In many real-life games, one player has more information than the other. This is called **asymmetric information**. 
+        </p>
+        <p>
+          In his famous paper *The Market for Lemons*, economist George Akerlof analyzed the used car market. Sellers know whether their car is a "peach" (high quality) or a "lemon" (defective), but buyers cannot tell. Because buyers are afraid of getting a lemon, they are only willing to pay an average price. 
+        </p>
+        <p>
+          However, that average price is too low for sellers of high-quality peaches, so they exit the market. Now, only lemons are left. Buyers realize this and refuse to buy anything, causing the market to collapse.
+        </p>
+
+        <!-- Interactive Lemon Market Simulator -->
+        <div class="simulator-container">
+          <div class="simulator-title">
+            <i class="fas fa-car"></i> Lemon Market & Asymmetric Info Lab
+          </div>
+          <p class="sim-label">
+            Adjust the sliders below to see how asymmetric information affects buyer trust and market stability.
+          </p>
+          
+          <div class="sim-controls">
+            <div class="sim-control-group">
+              <div class="sim-label">
+                <span>Information Asymmetry (Buyer Ignorance):</span>
+                <span id="info-val">50%</span>
+              </div>
+              <input type="range" id="info-slider" min="0" max="100" value="50" class="sim-slider">
+            </div>
+            
+            <div class="sim-control-group">
+              <div class="sim-label">
+                <span>Lemon Ratio (Percentage of defective cars):</span>
+                <span id="lemon-ratio-val">40%</span>
+              </div>
+              <input type="range" id="lemon-ratio-slider" min="0" max="100" value="40" class="sim-slider">
+            </div>
+          </div>
+
+          <div class="car-display-grid" id="car-display">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div class="market-status-box">
+            <div class="market-status-header">Current Market Condition</div>
+            <div class="market-status-value" id="market-status">Healthy</div>
+            <div class="sim-label" style="margin-top: 4px;">
+              <span>Buyers' Willingness to Pay:</span>
+              <span id="buyer-pay-val">$15,000</span>
+            </div>
+            <div class="sim-label">
+              <span>High Quality Peach Sellers:</span>
+              <span id="seller-status-val">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>The Solution: Costly Signaling</h3>
+        <p>
+          How do we solve asymmetric information? Through **signaling**. 
+        </p>
+        <p>
+          To be effective, a signal must be **costly** to fake. If a signal is cheap, everyone (including the scammers) will use it, rendering it useless.
+        </p>
+        <ul>
+          <li><strong>Education:</strong> A college degree does not just teach you skills; it serves as a costly signal to employers that you have the discipline to finish hard tasks. If getting a degree were easy, it would not signal capability.</li>
+          <li><strong>Guarantees & Warranties:</strong> Only a seller of a high-quality car can afford to offer a 5-year warranty. A lemon seller would go bankrupt fulfilling claims. Thus, a warranty is a credible signal of quality.</li>
+          <li><strong>Dating and Gifts:</strong> Taking someone to a nice dinner or giving a thoughtful gift is a costly signal of interest. It requires investment of time and money, proving you are not just sending "cheap talk" messages to dozens of people.</li>
+        </ul>
+
+        <h2 id="conclusion">// 8. Playing the Game Wisely</h2>
+        <p>
+          Understanding game theory does not mean you should view all relationships as battlegrounds or try to manipulate everyone you meet. In fact, the greatest lesson of game theory is that **cooperation is often the most rational strategy**.
+        </p>
+        <p>
+          To apply these principles to your daily life:
+        </p>
+        <ol>
+          <li><strong>Align Incentives:</strong> If your roommate refuses to clean, do not just argue. Change the rules of the game. Make a shared pool of funds where slackers pay a penalty that funds the other's coffee.</li>
+          <li><strong>Build Reputation:</strong> In iterated games of life, your reputation is your greatest asset. If people know you play Tit-for-Tat (nice but strong), they are far less likely to exploit you.</li>
+          <li><strong>Look Ahead, Reason Backward:</strong> Before making a decision, put yourself in the shoes of the other player. What will their response be? Play out the branches of the game tree before committing to your first move.</li>
+        </ol>
+        <p>
+          By recognizing the games around you, you gain the power to change the rules, build trust, and design outcomes that benefit everyone.
+        </p>
+      </article>
+      
+      <!-- Footer Link back -->
+      <a href="index.html#blog" class="article-back-link" style="margin-top: 48px;">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-copy">&copy; 2026 Siwat Teimtad. All rights reserved.</p>
+      <p class="footer-credit">Built with <span class="heart-icon">&hearts;</span> in Thailand &bull; JetBrains Mono, Vanilla CSS & JS</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Interactive Prisoner's Dilemma Lab
+    document.addEventListener('DOMContentLoaded', () => {
+      const pScoreElem = document.getElementById('player-score');
+      const oScoreElem = document.getElementById('opponent-score');
+      const roundElem = document.getElementById('round-count');
+      const logElem = document.getElementById('pd-log');
+      
+      const btnCooperate = document.getElementById('btn-cooperate');
+      const btnDefect = document.getElementById('btn-defect');
+      const btnReset = document.getElementById('btn-reset-pd');
+      const strategySelect = document.getElementById('opponent-strategy');
+      
+      let pScore = 0;
+      let oScore = 0;
+      let rounds = 0;
+      let history = []; // stores objects {player: 'C'/'D', opponent: 'C'/'D'}
+      
+      const getOpponentChoice = (strategy, history) => {
+        if (strategy === 'always-cooperate') return 'C';
+        if (strategy === 'always-defect') return 'D';
+        if (strategy === 'random') return Math.random() < 0.5 ? 'C' : 'D';
+        
+        if (strategy === 'tit-for-tat') {
+          if (history.length === 0) return 'C';
+          return history[history.length - 1].player;
+        }
+        
+        if (strategy === 'grim-trigger') {
+          const hasPlayerDefected = history.some(round => round.player === 'D');
+          return hasPlayerDefected ? 'D' : 'C';
+        }
+        
+        return 'C';
+      };
+      
+      const playRound = (playerChoice) => {
+        const strategy = strategySelect.value;
+        const opponentChoice = getOpponentChoice(strategy, history);
+        
+        let pRoundScore = 0;
+        let oRoundScore = 0;
+        
+        if (playerChoice === 'C' && opponentChoice === 'C') {
+          pRoundScore = 3; oRoundScore = 3;
+        } else if (playerChoice === 'D' && opponentChoice === 'D') {
+          pRoundScore = 1; oRoundScore = 1;
+        } else if (playerChoice === 'C' && opponentChoice === 'D') {
+          pRoundScore = 0; oRoundScore = 5;
+        } else {
+          pRoundScore = 5; oRoundScore = 0;
+        }
+        
+        pScore += pRoundScore;
+        oScore += oRoundScore;
+        rounds += 1;
+        
+        history.push({ player: playerChoice, opponent: opponentChoice });
+        
+        pScoreElem.textContent = pScore;
+        oScoreElem.textContent = oScore;
+        roundElem.textContent = rounds;
+        
+        const logEntry = document.createElement('div');
+        logEntry.className = 'pd-log-entry';
+        
+        const playerText = playerChoice === 'C' ? '<span style="color:#00ff41;">Cooperate</span>' : '<span style="color:#ff3366;">Defect</span>';
+        const opponentText = opponentChoice === 'C' ? '<span style="color:#00ff41;">Cooperate</span>' : '<span style="color:#ff3366;">Defect</span>';
+        
+        logEntry.innerHTML = `Round ${rounds}: You ${playerText} (+${pRoundScore} pts) | Opponent ${opponentText} (+${oRoundScore} pts)`;
+        
+        if (rounds === 1) logElem.innerHTML = '';
+        logElem.insertBefore(logEntry, logElem.firstChild);
+      };
+      
+      btnCooperate.addEventListener('click', () => playRound('C'));
+      btnDefect.addEventListener('click', () => playRound('D'));
+      btnReset.addEventListener('click', () => {
+        pScore = 0;
+        oScore = 0;
+        rounds = 0;
+        history = [];
+        pScoreElem.textContent = 0;
+        oScoreElem.textContent = 0;
+        roundElem.textContent = 0;
+        logElem.innerHTML = '<div class="pd-log-entry" style="color:var(--text-muted);">Game reset. Ready to play!</div>';
+      });
+      
+      // Lemon Market / Info Asymmetry Simulator
+      const infoSlider = document.getElementById('info-slider');
+      const lemonSlider = document.getElementById('lemon-ratio-slider');
+      
+      const infoVal = document.getElementById('info-val');
+      const lemonVal = document.getElementById('lemon-ratio-val');
+      
+      const marketStatus = document.getElementById('market-status');
+      const buyerPayVal = document.getElementById('buyer-pay-val');
+      const sellerStatusVal = document.getElementById('seller-status-val');
+      const carDisplay = document.getElementById('car-display');
+      
+      const updateMarket = () => {
+        const infoAsymmetry = parseInt(infoSlider.value);
+        const lemonRatio = parseInt(lemonSlider.value);
+        
+        infoVal.textContent = infoAsymmetry + '%';
+        lemonVal.textContent = lemonRatio + '%';
+        
+        // Compute statistics
+        const peachRatio = 100 - lemonRatio;
+        const peachValue = 20000;
+        const lemonValue = 10000;
+        
+        // If buyer has full information, they pay the true value.
+        // If asymmetric info, buyers pay the expected value.
+        const expectedValue = (peachRatio / 100) * peachValue + (lemonRatio / 100) * lemonValue;
+        
+        // How much buyer is willing to pay based on buyer ignorance (infoAsymmetry)
+        // At 0% asymmetry (perfect info), buyer pays exact value.
+        // At 100% asymmetry, buyer pays expectedValue.
+        const buyerWillingnessToPay = peachValue - (infoAsymmetry / 100) * (peachValue - expectedValue);
+        
+        // Peach sellers want at least $17,000 to sell.
+        // If buyer willingness to pay drops below $17,000, peach sellers exit!
+        const peachSellerReservationPrice = 17000;
+        
+        buyerPayVal.textContent = '$' + Math.round(buyerWillingnessToPay).toLocaleString();
+        
+        let status = 'Healthy';
+        let statusClass = 'status-healthy';
+        let sellersText = 'Active';
+        let peachesExited = false;
+        
+        if (buyerWillingnessToPay < peachSellerReservationPrice) {
+          peachesExited = true;
+          sellersText = 'Exited (Market Collapse)';
+          status = 'Market Collapsed';
+          statusClass = 'status-collapsed';
+          buyerPayVal.textContent = '$' + lemonValue.toLocaleString() + ' (Only Lemons Left)';
+        } else if (buyerWillingnessToPay < 18500) {
+          status = 'Struggling';
+          statusClass = 'status-struggling';
+          sellersText = 'Active (Marginal)';
+        }
+        
+        marketStatus.textContent = status;
+        marketStatus.className = 'market-status-value ' + statusClass;
+        sellerStatusVal.textContent = sellersText;
+        sellerStatusVal.style.color = peachesExited ? '#ff3366' : (status === 'Struggling' ? '#ff9800' : '#00ff41');
+        
+        // Render 10 car nodes representing the market pool
+        carDisplay.innerHTML = '';
+        for (let i = 0; i < 10; i++) {
+          const node = document.createElement('div');
+          
+          if (i < Math.round(lemonRatio / 10)) {
+            node.className = 'car-node car-lemon';
+            node.innerHTML = '<i class="fas fa-car car-icon"></i><span class="car-label">Lemon</span>';
+          } else {
+            if (peachesExited) {
+              node.className = 'car-node car-empty';
+              node.innerHTML = '<i class="fas fa-car-side car-icon"></i><span class="car-label">Gone</span>';
+            } else {
+              node.className = 'car-node car-peach';
+              node.innerHTML = '<i class="fas fa-car car-icon"></i><span class="car-label">Peach</span>';
+            }
+          }
+          carDisplay.appendChild(node);
+        }
+      };
+      
+      infoSlider.addEventListener('input', updateMarket);
+      lemonSlider.addEventListener('input', updateMarket);
+      updateMarket();
+    });
+  </script>
+</body>
+</html>
