@@ -943,6 +943,19 @@ input, textarea, button {
   color: var(--text-muted);
 }
 
+.heart-icon {
+  color: #ff3366;
+  animation: pulse-heart 1.5s infinite;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+@keyframes pulse-heart {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
 /* ==========================================================================
    Responsive Design Media Queries
    ========================================================================== */
