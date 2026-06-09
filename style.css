@@ -2,21 +2,23 @@
    Design System & Variables
    ========================================================================== */
 :root {
-  /* Color Palette */
-  --bg-primary: #0a0c10;
-  --bg-secondary: #12161f;
-  --bg-elevated: #181d28;
-  --border-color: #262e3d;
-  --border-focus: #3e4c63;
+  /* Color Palette - Customized for The Matrix Theme */
+  --bg-primary: #000000;
+  --bg-secondary: #050a05;
+  --bg-elevated: #0a140a;
+  --border-color: #122412;
+  --border-focus: #00ff41;
   
-  --color-primary: #e5c07b; /* Amber Gold */
-  --color-secondary: #4c9699; /* Muted Teal */
-  --color-danger: #ef596f; /* Rose Red */
-  --color-success: #89b482; /* Muted Green */
+  --color-primary: #00ff41; /* Glowing Matrix Green */
+  --color-primary-rgb: 0, 255, 65;
+  --color-secondary: #00aa22; /* Darker Solid Green */
+  --color-secondary-rgb: 0, 170, 34;
+  --color-danger: #ff2b2b; /* Red Pill Red */
+  --color-success: #00ff41; /* Matrix Green Success */
   
-  --text-main: #e6edf3;
-  --text-muted: #8b949e;
-  --text-dark: #0f141c;
+  --text-main: #d1ffd6; /* Soft Phosphor Tint */
+  --text-muted: #568759; /* Dimmed Phosphor Code */
+  --text-dark: #000000; /* Deep Black for Contrast */
   
   /* Fonts */
   --font-family: 'JetBrains Mono', monospace;
@@ -26,10 +28,10 @@
   --transition-normal: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Shadows & Glows */
-  --glow-gold: 0 0 15px rgba(229, 192, 123, 0.25);
-  --glow-teal: 0 0 15px rgba(76, 150, 153, 0.25);
-  --shadow-main: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  --glass-bg: rgba(18, 22, 31, 0.7);
+  --glow-gold: 0 0 15px rgba(var(--color-primary-rgb), 0.35);
+  --glow-teal: 0 0 15px rgba(var(--color-secondary-rgb), 0.25);
+  --shadow-main: 0 8px 32px 0 rgba(0, 0, 0, 0.85);
+  --glass-bg: rgba(5, 10, 5, 0.75);
 }
 
 /* ==========================================================================
@@ -72,6 +74,50 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+}
+
+/* CRT Screen Effect - Vignette & Scanlines */
+body::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(circle, transparent 55%, rgba(0, 0, 0, 0.5) 130%);
+  z-index: 9998;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.12) 50%);
+  background-size: 100% 4px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Custom Terminal Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
 }
 
 a {
@@ -259,7 +305,7 @@ input, textarea, button {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: radial-gradient(circle at 80% 20%, rgba(20, 26, 38, 0.3) 0%, var(--bg-primary) 70%);
+  background: radial-gradient(circle at 80% 20%, rgba(var(--color-secondary-rgb), 0.08) 0%, var(--bg-primary) 70%);
   padding-top: 100px;
 }
 
@@ -272,8 +318,8 @@ input, textarea, button {
   height: 100%;
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(38, 46, 61, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(38, 46, 61, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--color-primary-rgb), 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--color-primary-rgb), 0.035) 1px, transparent 1px);
   pointer-events: none;
   z-index: 1;
 }
@@ -292,8 +338,8 @@ input, textarea, button {
   padding: 6px 16px;
   font-size: 0.75rem;
   font-weight: 600;
-  background-color: rgba(229, 192, 123, 0.08);
-  border: 1px solid rgba(229, 192, 123, 0.2);
+  background-color: rgba(var(--color-primary-rgb), 0.08);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
   color: var(--color-primary);
   border-radius: 40px;
   margin-bottom: 24px;
@@ -306,8 +352,8 @@ input, textarea, button {
   padding: 4px 10px;
   font-size: 0.7rem;
   font-weight: 600;
-  background-color: rgba(229, 192, 123, 0.08);
-  border: 1px solid rgba(229, 192, 123, 0.2);
+  background-color: rgba(var(--color-primary-rgb), 0.08);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
   color: var(--color-primary);
   border-radius: 40px;
   margin-bottom: 20px;
@@ -320,10 +366,11 @@ input, textarea, button {
   font-weight: 800;
   letter-spacing: -1.5px;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, var(--text-main) 30%, #a2b0c5 100%);
+  background: linear-gradient(135deg, var(--text-main) 30%, var(--color-primary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   max-width: 800px;
+  filter: drop-shadow(0 0 12px rgba(var(--color-primary-rgb), 0.3));
 }
 
 .hero-subtitle {
@@ -367,7 +414,7 @@ input, textarea, button {
   position: absolute;
   width: 150px;
   height: 150px;
-  background: radial-gradient(circle, rgba(76, 150, 153, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.15) 0%, transparent 70%);
   border-radius: 50%;
   top: 10%;
   right: 10%;
@@ -488,7 +535,7 @@ input, textarea, button {
   background: var(--color-primary);
   cursor: pointer;
   transition: transform var(--transition-fast);
-  box-shadow: 0 0 8px rgba(229, 192, 123, 0.4);
+  box-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.5);
 }
 
 .range-slider::-webkit-slider-thumb:hover {
@@ -593,7 +640,7 @@ input, textarea, button {
   letter-spacing: 1px;
   padding: 2px 8px;
   border-radius: 3px;
-  background-color: rgba(229, 192, 123, 0.1);
+  background-color: rgba(var(--color-primary-rgb), 0.1);
   color: var(--color-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -877,7 +924,7 @@ input, textarea, button {
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--color-secondary);
-  box-shadow: 0 0 0 2px rgba(76, 150, 153, 0.15);
+  box-shadow: 0 0 0 2px rgba(var(--color-secondary-rgb), 0.15);
   outline: none;
 }
 

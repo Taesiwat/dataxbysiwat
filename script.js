@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.shadowBlur = 0;
       
       // Semi-transparent overlay to create trailing effect
-      ctx.fillStyle = "rgba(10, 12, 16, 0.08)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, width, height);
       
       ctx.font = fontSize + "px monospace";
